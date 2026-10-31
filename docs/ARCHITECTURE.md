@@ -225,3 +225,12 @@ O piso de ~157 KB é o runtime do React 19 + Next.js 16.
 - **Dependências:** `npm audit --omit=dev` sem vulnerabilidades. Há 16 alertas moderados só em ferramentas de
   desenvolvimento (`minimatch` via plugins do ESLint), que não vão para o site; não foi aplicado
   `npm audit fix --force` por exigir mudanças incompatíveis.
+
+## Publicação (Fase 9)
+
+- `src/lib/site.ts`: URL pública (`NEXT_PUBLIC_SITE_URL` → `VERCEL_PROJECT_PRODUCTION_URL` → localhost).
+- Metadados: `metadataBase`, canônicas, Open Graph (`pt_BR`) e Twitter Card no layout; metadados próprios por personagem.
+- Imagens de Open Graph geradas no build (`app/opengraph-image.tsx` e uma por personagem), com arte original.
+- `sitemap.ts` (26 URLs), `robots.ts` (bloqueia `/resultado`), `manifest.ts`, `icon.svg`.
+- Cabeçalhos de segurança em `next.config.ts`: CSP sem recursos de terceiros, `nosniff`, `Referrer-Policy`,
+  `X-Frame-Options`, `Permissions-Policy`; `X-Powered-By` desativado.

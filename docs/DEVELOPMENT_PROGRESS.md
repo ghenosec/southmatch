@@ -162,3 +162,21 @@ Lint ✅ · TypeScript ✅ · 244 testes Vitest ✅ · build ✅ · 115 testes P
 - Rótulos de faixa no masculino genérico no resultado do usuário (decisão editorial).
 - Teste com leitor de tela real e com usuários (duração, clareza das afirmações).
 - 16 alertas moderados apenas em dependências de desenvolvimento (ESLint).
+
+## 30/10/2026 — Fase 9: preparação para publicação
+
+### Feito
+- SEO: `metadataBase`, canônicas, Open Graph e Twitter Card; metadados por personagem; sitemap (26 URLs),
+  robots (bloqueia `/resultado`), manifesto e ícone.
+- Imagens de Open Graph originais geradas no build (site + 20 personagens).
+- Cabeçalhos de segurança (CSP sem terceiros, nosniff, Referrer-Policy, X-Frame-Options, Permissions-Policy).
+- `NEXT_PUBLIC_SITE_URL` e `.env.example`; guia e checklist em `docs/DEPLOY.md`.
+- Revisão de direitos autorais e de marca (pesquisa do nome; riscos e mitigações documentados).
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 244 testes Vitest ✅ · build ✅ · 127 testes Playwright ✅ · npm audit (produção) 0
+
+### Pendências antes do deploy (ver docs/DEPLOY.md)
+- Autorização para publicar.
+- Consulta jurídica sobre os nomes "SouthMatch" e "South Park"; busca no INPI.
+- Revisão editorial (Scott, Heidi, afirmações, gênero gramatical) e teste-piloto.

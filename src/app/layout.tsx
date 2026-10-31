@@ -3,6 +3,7 @@ import { Lilita_One, Nunito } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { themeVariables } from "@/components/layout/theme-variables";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { getActiveTheme } from "@/services/quiz";
 import "./globals.css";
 
@@ -11,14 +12,31 @@ const lilita = Lilita_One({ variable: "--font-lilita", subsets: ["latin"], weigh
 
 const theme = getActiveTheme();
 
+const description = `Teste gratuito e sem cadastro: responda a ${theme.questions.length} afirmações e descubra com qual personagem de South Park você mais se parece.`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `SouthMatch — ${theme.texts.title}`,
-    template: "%s | SouthMatch",
+    default: `${SITE_NAME} — ${theme.texts.title}`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Teste gratuito e anônimo: responda a 45 afirmações e descubra com qual personagem de South Park você mais se parece.",
-  applicationName: "SouthMatch",
+  description,
+  applicationName: SITE_NAME,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${theme.texts.title}`,
+    description,
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${theme.texts.title}`,
+    description,
+  },
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {

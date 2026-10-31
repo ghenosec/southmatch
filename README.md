@@ -17,7 +17,7 @@ e descubra com qual personagem de South Park você mais se parece.
 | 6. Compartilhamento | ✅ concluída |
 | 7. Catálogo e conteúdo | ✅ concluída |
 | 8. Calibração e qualidade | ✅ concluída |
-| 9. Publicação | ⏳ próxima |
+| 9. Preparação para publicação | ✅ concluída (deploy aguardando autorização) |
 
 Detalhes em [`docs/DEVELOPMENT_PROGRESS.md`](docs/DEVELOPMENT_PROGRESS.md).
 
@@ -53,11 +53,22 @@ Ver [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) e [`docs/METHODOLOGY.md`](doc
 
 ## Deploy na Vercel
 
-O projeto não precisa de variáveis de ambiente nem de banco de dados.
+O projeto não precisa de banco de dados nem de segredos. Única variável recomendada:
+`NEXT_PUBLIC_SITE_URL` (ver `.env.example`).
 
-1. Envie o repositório para o GitHub.
-2. Na Vercel, importe o repositório (framework detectado: Next.js).
-3. Comando de build: `npm run build` (padrão). Node 22+.
+Guia completo, checklist de publicação e revisão de direitos autorais e de marca:
+[`docs/DEPLOY.md`](docs/DEPLOY.md).
 
-> Nenhum deploy foi feito. Publicar somente após revisão de direitos autorais e de marca
-> (ver checklist da Fase 9).
+> Nenhum deploy foi feito. Publicar somente após autorização e após as pendências de conteúdo e de
+> direitos listadas em `docs/DEPLOY.md`.
+
+## Documentação
+
+| Documento | Conteúdo |
+|---|---|
+| [ARCHITECTURE](docs/ARCHITECTURE.md) | camadas, contratos, como criar temas, perguntas e personagens |
+| [METHODOLOGY](docs/METHODOLOGY.md) | eixos, fórmulas, explicações e limitações |
+| [QUESTION_AUDIT](docs/QUESTION_AUDIT.md) | as 45 afirmações e a revisão editorial |
+| [CHARACTER_PROFILES](docs/CHARACTER_PROFILES.md) | os 20 perfis, justificativas e calibração |
+| [TESTING](docs/TESTING.md) | comandos, cobertura e resultados |
+| [DEPLOY](docs/DEPLOY.md) | publicação, checklist e revisão de direitos |

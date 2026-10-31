@@ -35,6 +35,7 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 | `tests/integration/characters.test.ts` | confiança dos perfis, personagens parecidos pela distância do motor, destaques, navegação circular |
 | `tests/themes/calibration-realistic.test.ts` | respondentes simulados coerentes com ruído, viés de concordância e excesso de neutras |
 | `tests/e2e/a11y.spec.ts` | auditoria axe-core WCAG A/AA em todas as rotas, quiz e resultado |
+| `tests/e2e/seo-security.spec.ts` | cabeçalhos de segurança, ausência de violações de CSP, metadados e Open Graph, noindex no resultado, imagens OG 1200×630, sitemap, robots, manifesto, ícone |
 | `tests/e2e/quiz.spec.ts` | iniciar, teclado e nomes acessíveis, avanço automático, voltar/alterar, retomar, reiniciar, progresso corrompido, 45 respostas até o resultado, ausência de requisições externas; resultado: explicação, perfil comportamental, ranking completo, comparação pelo seletor e pelo top 5, copiar resumo, refazer |
 | `tests/e2e/pages.spec.ts` | todas as páginas carregam sem rolagem horizontal (também a 360 px), elementos da landing, catálogo com busca e ordenação, página de personagem (parecidos, confiança, navegação, sem adjetivos no masculino para personagens femininas), exemplo numérico da metodologia, apagar dados na privacidade, 404 real, link de pular conteúdo |
 | `tests/themes/south-park.test.ts` | 45 perguntas, 5 por eixo, 9 eixos, 20 personagens, IDs únicos, polaridades 23/22, múltiplos de 5, textos, licença de imagens |
@@ -43,15 +44,15 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 Cenários aleatórios usam um gerador com semente fixa (`seededRandom` em `tests/fixtures.ts`)
 para serem reprodutíveis.
 
-## Último resultado (Fase 8, 30/10/2026)
+## Último resultado — validação final (Fase 9, 30/10/2026)
 
 | Verificação | Resultado |
 |---|---|
 | Lint | ✅ sem erros |
 | TypeScript | ✅ sem erros |
-| Vitest | ✅ 16 arquivos, 244 testes |
-| Build de produção | ✅ todas as rotas estáticas |
-| Playwright | ✅ 115 testes (desktop, mobile 412 px, mobile 360 px), incluindo axe sem violações |
+| Vitest | ✅ 16 arquivos, 244 testes (motor, temas, calibração, integração) |
+| Build de produção | ✅ todas as rotas estáticas, 21 imagens de Open Graph |
+| Playwright | ✅ 127 testes (desktop, mobile 412 px, mobile 360 px), incluindo axe e segurança |
 | `npm audit --omit=dev` | ✅ 0 vulnerabilidades |
 
 ## Pendente
