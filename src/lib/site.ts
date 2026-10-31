@@ -14,3 +14,12 @@ function resolveSiteUrl(): string {
 
 export const SITE_URL = resolveSiteUrl();
 export const SITE_NAME = "SouthMatch";
+
+/** Autor do projeto, exibido no rodapé. */
+export const AUTHOR = {
+  name: "Ghenosec",
+  githubUrl: "https://github.com/Ghenosec",
+} as const;
+
+/** Ano de início do projeto (para o aviso de direitos). */
+export const COPYRIGHT_START_YEAR = 2026;

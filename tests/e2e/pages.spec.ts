@@ -136,3 +136,29 @@ test("respeita movimento reduzido: a neve da landing não anima", async ({ page 
   );
   expect(animated).toBe(0);
 });
+
+test("rodapé: direitos reservados e crédito com link para o GitHub", async ({ page }) => {
+  await page.goto("/");
+  const footer = page.getByRole("contentinfo");
+  await expect(footer.getByText(/© \d{4}.* SouthMatch\. Todos os direitos reservados/)).toBeVisible();
+  const credit = footer.getByRole("link", { name: /Feito por .+ no GitHub/ });
+  await expect(credit).toHaveAttribute("href", /^https:\/\/github\.com\/[\w-]+$/);
+  await expect(credit).toHaveAttribute("target", "_blank");
+  await expect(credit).toHaveAttribute("rel", /noopener/);
+});
+
+test("hero: o topo das montanhas não fica cortado em telas largas", async ({ page }) => {
+  for (const [width, height] of [[1920, 912], [2560, 1080], [1366, 768]] as const) {
+    await page.setViewportSize({ width, height });
+    await page.goto("/");
+    const box = await page.locator("section").first().locator("svg").first().evaluate((svg) => {
+      const s = svg as SVGSVGElement;
+      const r = s.getBoundingClientRect();
+      const vb = s.viewBox.baseVal;
+      // "slice" escala pelo maior fator; o topo é cortado se a altura renderizada exceder a do elemento.
+      const scale = Math.max(r.width / vb.width, r.height / vb.height);
+      return { renderedHeight: vb.height * scale, elementHeight: r.height };
+    });
+    expect(box.renderedHeight).toBeLessThanOrEqual(box.elementHeight + 1);
+  }
+});

@@ -2,9 +2,12 @@ import type { CharacterDefinition } from "@/core/types";
 import { initialsOf } from "@/lib/initials";
 
 /**
- * Avatar provisório e original: um "boneco de papel" genérico na cor do
- * personagem, com as iniciais. Não reproduz o visual de nenhum personagem.
- * Será trocado por `image.src` quando houver ilustrações licenciadas.
+ * Avatar do personagem.
+ *
+ * - Com `image.src` (ilustração licenciada, com `image.license` preenchida —
+ *   a validação do tema exige): mostra a imagem de public/themes/<tema>/.
+ * - Sem imagem: "boneco de papel" genérico e original na cor do personagem,
+ *   com as iniciais. Não reproduz o visual de nenhum personagem.
  */
 export function CharacterAvatar({
   character,
@@ -16,6 +19,22 @@ export function CharacterAvatar({
   decorative?: boolean;
 }) {
   const initials = initialsOf(character.name);
+
+  if (character.image.src && character.image.license) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- arquivos locais pequenos; evita otimização sob demanda
+      <img
+        src={character.image.src}
+        alt={decorative ? "" : character.image.alt}
+        width={size}
+        height={size}
+        loading="lazy"
+        decoding="async"
+        className="shrink-0 rounded-full border-[3px] border-ink bg-snow object-contain"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
 
   return (
     <svg

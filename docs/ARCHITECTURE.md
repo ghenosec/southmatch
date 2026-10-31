@@ -234,3 +234,11 @@ O piso de ~157 KB é o runtime do React 19 + Next.js 16.
 - `sitemap.ts` (26 URLs), `robots.ts` (bloqueia `/resultado`), `manifest.ts`, `icon.svg`.
 - Cabeçalhos de segurança em `next.config.ts`: CSP sem recursos de terceiros, `nosniff`, `Referrer-Policy`,
   `X-Frame-Options`, `Permissions-Policy`; `X-Powered-By` desativado.
+
+## Ajustes pós-Fase 9
+
+- **Hero:** a cena de inverno usa `viewBox` 7,5:1 com `slice`; em telas largas só as laterais são cortadas,
+  nunca o topo dos picos (testado em 1366, 1920 e 2560 px). Capas de neve calculadas a partir das encostas.
+- **Avatares:** `CharacterAvatar` usa `image.src` quando há imagem com licença registrada; senão, o boneco original.
+- **Rodapé:** aviso de direitos sobre o código e o conteúdo original e crédito ao autor com link para o GitHub
+  (`AUTHOR` em `src/lib/site.ts`).

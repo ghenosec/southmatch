@@ -87,6 +87,18 @@ ajustes ou remoção do conteúdo a pedido dos titulares; nenhuma monetização.
 **Alternativa de menor risco:** publicar com um nome que não contenha "South" nem "Match" (ex.: um nome próprio
 do projeto) e manter "South Park" apenas como descrição do tema.
 
+## 5.1 Como adicionar ilustrações licenciadas
+
+O site **não** inclui imagens oficiais. Se você obtiver ilustrações com licença que permita o uso:
+
+1. Coloque os arquivos em `public/themes/south-park/` (ex.: `stan.png`, quadrado, fundo transparente).
+2. Em `src/themes/south-park/characters.ts`, preencha a imagem do personagem:
+   `image: { src: "/themes/south-park/stan.png", alt: "Stan Marsh", license: "<origem e termos da licença>" }`
+3. Incremente `versions.profiles` em `config.ts` e rode `npm run check`.
+
+A validação do tema recusa imagem sem `license` preenchida. Com a imagem configurada, o avatar passa a usá-la
+em todo o site; sem ela, continua o boneco original.
+
 ## 6. Depois do deploy
 
 - [ ] Abrir `/`, `/quiz`, `/resultado`, `/personagens`, uma página de personagem e `/metodologia` no domínio final

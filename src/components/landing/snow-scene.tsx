@@ -31,28 +31,77 @@ function House({ x, y, color }: { x: number; y: number; color: string }) {
   );
 }
 
+/**
+ * Cordilheira (x, y) em um desenho bem mais largo que alto (viewBox 7,5:1).
+ * Com "slice", telas largas cortam só as laterais — nunca o topo dos picos.
+ */
+const RIDGE: readonly (readonly [number, number])[] = [
+  [-920, 300], [-700, 125], [-560, 235], [-380, 110], [-200, 245], [-40, 160], [60, 225], [170, 120],
+  [300, 235], [460, 110], [640, 260], [800, 125], [980, 250], [1110, 130], [1260, 245], [1420, 115],
+  [1580, 235], [1740, 130], [1880, 250], [2000, 120], [2120, 300],
+];
+
+/** Capa de neve recortada sobre cada pico, seguindo as encostas vizinhas. */
+function snowCaps(): string {
+  const caps: string[] = [];
+  for (let i = 1; i < RIDGE.length - 1; i++) {
+    const [ax, ay] = RIDGE[i - 1]!;
+    const [px, py] = RIDGE[i]!;
+    const [bx, by] = RIDGE[i + 1]!;
+    if (py > ay || py > by) continue; // não é pico
+    const t = 0.3;
+    const L = [px + (ax - px) * t, py + (ay - py) * t];
+    const R = [px + (bx - px) * t, py + (by - py) * t];
+    const cy = Math.max(L[1]!, R[1]!) + 6;
+    const ml = [(L[0]! + px) / 2, cy - 12];
+    const mr = [(R[0]! + px) / 2, cy - 12];
+    const pts = [[px, py], R, mr, [px, cy], ml, L].map(([x, y]) => `${x!.toFixed(0)} ${y!.toFixed(0)}`);
+    caps.push(`M${pts.join(" L")} Z`);
+  }
+  return caps.join(" ");
+}
+
+const RIDGE_PATH = `M${RIDGE.map(([x, y]) => `${x} ${y}`).join(" L")} Z`;
+const CAPS_PATH = snowCaps();
+
+const PINES: readonly [number, number, number][] = [
+  [-620, 326, 1.1], [-470, 318, 1], [-260, 330, 1.2], [90, 330, 1.2], [150, 318, 1], [330, 322, 0.9],
+  [880, 318, 1.1], [950, 328, 1], [1110, 322, 1.3], [1330, 326, 1], [1480, 318, 1.2], [1800, 330, 1.1], [1960, 320, 1],
+];
+
 export function SnowScene() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <svg className="absolute inset-x-0 bottom-0 h-[48%] w-full sm:h-[52%]" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMax slice">
+      <svg
+        className="absolute inset-x-0 bottom-0 h-[48%] w-full sm:h-[52%]"
+        viewBox="-900 0 3000 400"
+        preserveAspectRatio="xMidYMax slice"
+      >
         {/* montanhas ao fundo */}
-        <path d="M-20 300 L170 90 L300 230 L460 60 L640 260 L800 110 L980 250 L1110 120 L1240 300 Z" fill="var(--color-rock)" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
-        <path d="M170 90 L215 140 L190 132 L170 150 L150 128 L128 138 Z M460 60 L515 122 L485 112 L460 135 L438 112 L410 120 Z M800 110 L848 162 L822 155 L800 172 L780 152 L755 160 Z M1110 120 L1150 166 L1128 160 L1110 176 L1092 158 L1072 164 Z" fill="#fff" stroke="var(--color-ink)" strokeWidth="2" strokeLinejoin="round" />
+        <path d={RIDGE_PATH} fill="var(--color-rock)" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
+        <path d={CAPS_PATH} fill="#fff" stroke="var(--color-ink)" strokeWidth="2" strokeLinejoin="round" />
         {/* colinas */}
-        <path d="M-20 400 V300 Q200 240 420 290 T820 280 T1240 290 V400 Z" fill="#fff" stroke="var(--color-ink)" strokeWidth="3" />
+        <path
+          d="M-920 400 V300 Q-700 250 -460 290 T-20 280 T420 290 T820 280 T1240 290 T1660 280 T2120 290 V400 Z"
+          fill="#fff"
+          stroke="var(--color-ink)"
+          strokeWidth="3"
+        />
         {/* cidade */}
         <House x={470} y={318} color="#e57373" />
         <House x={530} y={322} color="#64b5f6" />
         <House x={660} y={316} color="#ffb74d" />
         <House x={720} y={320} color="#81c784" />
         {/* pinheiros */}
-        <Pine x={90} y={330} s={1.2} />
-        <Pine x={150} y={318} />
-        <Pine x={330} y={322} s={0.9} />
-        <Pine x={880} y={318} s={1.1} />
-        <Pine x={950} y={328} />
-        <Pine x={1110} y={322} s={1.3} />
-        <path d="M-20 400 V360 Q300 330 600 352 T1240 350 V400 Z" fill="var(--color-sky-pale)" stroke="var(--color-ink)" strokeWidth="3" />
+        {PINES.map(([x, y, s]) => (
+          <Pine key={x} x={x} y={y} s={s} />
+        ))}
+        <path
+          d="M-920 400 V360 Q-600 330 -300 352 T300 352 T900 352 T1500 352 T2120 350 V400 Z"
+          fill="var(--color-sky-pale)"
+          stroke="var(--color-ink)"
+          strokeWidth="3"
+        />
       </svg>
       {FLAKES.map((f, i) => (
         <span

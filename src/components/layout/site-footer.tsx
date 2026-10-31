@@ -1,5 +1,11 @@
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { AUTHOR, COPYRIGHT_START_YEAR, SITE_NAME } from "@/lib/site";
+
+// Ano calculado no build (páginas estáticas); um novo deploy atualiza.
+const BUILD_YEAR = new Date().getFullYear();
+const YEARS = BUILD_YEAR > COPYRIGHT_START_YEAR ? `${COPYRIGHT_START_YEAR}–${BUILD_YEAR}` : String(COPYRIGHT_START_YEAR);
 
 export function SiteFooter({ disclaimer }: { disclaimer: string }) {
   return (
@@ -18,6 +24,21 @@ export function SiteFooter({ disclaimer }: { disclaimer: string }) {
         <p className="text-sm text-snow/70">
           Teste de entretenimento. Não tem valor psicológico, clínico ou científico.
         </p>
+        <div className="flex flex-col gap-3 border-t border-snow/20 pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-snow/80">
+            © {YEARS} {SITE_NAME}. Todos os direitos reservados sobre o código e o conteúdo original do site.
+          </p>
+          <a
+            href={AUTHOR.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-bold hover:text-sun"
+          >
+            Feito por {AUTHOR.name} no GitHub
+            <ExternalLink aria-hidden className="size-4" />
+            <span className="sr-only"> (abre o GitHub em nova aba)</span>
+          </a>
+        </div>
       </Container>
     </footer>
   );
