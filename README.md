@@ -128,5 +128,4 @@ são interpretações de fã, não medições oficiais.
 
 Criado por [Ghenosec](https://github.com/ghenosec).
 
-South Park e seus personagens pertencem aos respectivos titulares de direitos. As imagens dos personagens
-usadas no site são fan-arts.
+South Park e seus personagens pertencem aos respectivos titulares de direitos.
