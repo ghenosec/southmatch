@@ -12,12 +12,15 @@ export function OgCard({
   subtitle,
   color,
   initials,
+  imageDataUrl = null,
 }: {
   kicker: string;
   title: string;
   subtitle: string;
   color: string;
   initials: string;
+  /** Imagem do personagem (data URL), se fornecida pelo responsável. */
+  imageDataUrl?: string | null;
 }) {
   return (
     <div
@@ -51,6 +54,16 @@ export function OgCard({
           boxShadow: `10px 12px 0 ${INK}`,
         }}
       >
+        {imageDataUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element -- ImageResponse (Satori) só aceita <img>
+          <img
+            src={imageDataUrl}
+            alt=""
+            width={220}
+            height={220}
+            style={{ objectFit: "contain", borderRadius: 110, border: `6px solid ${INK}`, background: "#fbfdff" }}
+          />
+        ) : (
         <div style={{ display: "flex", position: "relative", width: 220, height: 220 }}>
           <svg width="220" height="220" viewBox="0 0 100 100">
             <path d="M18 100 C18 72 30 62 50 62 C70 62 82 72 82 100 Z" fill={color} stroke={INK} strokeWidth="3" />
@@ -77,6 +90,7 @@ export function OgCard({
             {initials}
           </div>
         </div>
+        )}
         <div style={{ display: "flex", flexDirection: "column", flex: 1, color: INK }}>
           <div style={{ display: "flex", fontSize: 36, fontWeight: 900 }}>
             <span>South</span>

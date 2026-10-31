@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react";
 import { round } from "@/core";
 import { CharacterAvatar } from "@/components/characters/character-avatar";
@@ -52,7 +53,39 @@ function List({ title, items }: { title: string; items: readonly string[] }) {
   );
 }
 
-export default async function CharacterPage({ params }: PageProps<"/personagens/[slug]">) {
+/**
+ * A "casca" da rota (fundo, voltar ao catálogo) não depende da URL; o conteúdo
+ * que lê `params` fica dentro de <Suspense>, como pede o Partial Prefetching.
+ * Os 20 personagens continuam pré-gerados no build (generateStaticParams).
+ */
+export default function CharacterPage({ params }: PageProps<"/personagens/[slug]">) {
+  return (
+    <main className="flex-1 bg-gradient-to-b from-sky-pale to-snow py-10 sm:py-14">
+      <Container className="flex max-w-3xl flex-col gap-8">
+        <div className="text-sm font-bold">
+          <Link href="/personagens" className="underline-offset-4 hover:underline">
+            ← Todos os personagens
+          </Link>
+        </div>
+        <Suspense fallback={<CharacterSkeleton />}>
+          <CharacterContent params={params} />
+        </Suspense>
+      </Container>
+    </main>
+  );
+}
+
+function CharacterSkeleton() {
+  return (
+    <div role="status" className="paper flex flex-col items-center gap-4 p-10">
+      <div aria-hidden className="size-36 animate-pulse rounded-full bg-sky-pale" />
+      <div aria-hidden className="h-10 w-64 animate-pulse rounded-xl bg-sky-pale" />
+      <span className="sr-only">Carregando personagem…</span>
+    </div>
+  );
+}
+
+async function CharacterContent({ params }: { params: PageProps<"/personagens/[slug]">["params"] }) {
   const c = findCharacter((await params).slug);
   if (!c) notFound();
 
@@ -62,14 +95,7 @@ export default async function CharacterPage({ params }: PageProps<"/personagens/
   const confidence = c.confidence ? CONFIDENCE_LABELS[c.confidence] : null;
 
   return (
-    <main className="flex-1 bg-gradient-to-b from-sky-pale to-snow py-10 sm:py-14">
-      <Container className="flex max-w-3xl flex-col gap-8">
-        <div className="text-sm font-bold">
-          <Link href="/personagens" className="underline-offset-4 hover:underline">
-            ← Todos os personagens
-          </Link>
-        </div>
-
+    <>
         <section className="paper flex flex-col items-center gap-4 p-6 text-center sm:p-10">
           <CharacterAvatar character={c} size={140} />
           <h1 className="font-display text-4xl sm:text-5xl">{c.name}</h1>
@@ -158,7 +184,6 @@ export default async function CharacterPage({ params }: PageProps<"/personagens/
             </nav>
           )}
         </div>
-      </Container>
-    </main>
+    </>
   );
 }

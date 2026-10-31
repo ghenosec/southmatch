@@ -242,3 +242,8 @@ O piso de ~157 KB é o runtime do React 19 + Next.js 16.
 - **Avatares:** `CharacterAvatar` usa `image.src` quando há imagem com licença registrada; senão, o boneco original.
 - **Rodapé:** aviso de direitos sobre o código e o conteúdo original e crédito ao autor com link para o GitHub
   (`AUTHOR` em `src/lib/site.ts`).
+- **Imagens de personagens:** fornecidas pelo responsável em `public/themes/south-park/<slug>.*`;
+  `npm run images:sync` gera `images.generated.ts` (arquivo + licença), lido por `imageFor` em `assets.ts`.
+  Usadas no avatar, na imagem do resultado (canvas) e no Open Graph do personagem.
+- **Página de personagem:** a leitura de `params` fica dentro de `<Suspense>` (exigência do Partial Prefetching);
+  a casca da rota não depende da URL.

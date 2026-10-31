@@ -9,16 +9,13 @@
  * Ao mudar qualquer valor, incremente `versions.profiles` em config.ts.
  */
 import type { AxisScores, CharacterDefinition } from "@/core/types";
+import { imageFor } from "./assets";
 
 /** Ordem: soc, emp, aut, dec, con, amb, hum, loy, wor. */
 type Vector = readonly [number, number, number, number, number, number, number, number, number];
 
 function v([sociability, empathy, authority, decision, conflict, ambition, humor, loyalty, worldview]: Vector): AxisScores {
   return { sociability, empathy, authority, decision, conflict, ambition, humor, loyalty, worldview };
-}
-
-function placeholder(name: string) {
-  return { src: null, alt: `Ilustração provisória representando ${name}`, license: null };
 }
 
 export const characters: readonly CharacterDefinition[] = [
@@ -38,7 +35,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Ambição e confronto quase máximos pelos esquemas recorrentes e provocações. Empatia mínima pela indiferença ao sofrimento alheio. Regras baixas: ignora autoridade alheia. Decisão acima do centro porque seus planos costumam ser elaborados, ainda que movidos por impulso. Lealdade baixa: troca de lado quando convém.",
     confidence: "high",
     color: "#d7263d",
-    image: placeholder("Eric Cartman"),
+    image: imageFor("eric-cartman", "Eric Cartman"),
     result: {
       headline: "Você é mais parecido com Eric Cartman!",
       summary: "Você tende a mirar alto, não foge de uma briga e tem um humor afiado. Só cuidado para a ambição não atropelar quem está ao lado.",
@@ -60,7 +57,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Perfil moderado na maioria dos eixos, refletindo seu papel de 'garoto comum'. Empatia e lealdade altas pela amizade constante com Kyle e pela preocupação com injustiças. Visão de mundo no centro: alterna entre idealismo e cinismo ao longo da série.",
     confidence: "high",
     color: "#3a6fd9",
-    image: placeholder("Stan Marsh"),
+    image: imageFor("stan-marsh", "Stan Marsh"),
     result: {
       headline: "Você é mais parecido com Stan Marsh!",
       summary: "Você tende a buscar o equilíbrio, valoriza muito seus amigos e tenta fazer o certo — mesmo quando o mundo parece não colaborar.",
@@ -82,7 +79,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Visão de mundo muito idealista pelos discursos morais recorrentes. Confronto alto pelas discussões constantes, sobretudo com Cartman. Decisão analítica por ser estudioso e argumentativo. Empatia e lealdade altas.",
     confidence: "high",
     color: "#2e9e5b",
-    image: placeholder("Kyle Broflovski"),
+    image: imageFor("kyle-broflovski", "Kyle Broflovski"),
     result: {
       headline: "Você é mais parecido com Kyle Broflovski!",
       summary: "Você tende a defender suas ideias com paixão e não aceita injustiças em silêncio. Seus princípios guiam suas escolhas.",
@@ -104,7 +101,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Impulsividade e rebeldia pela disposição a riscos e travessuras. Humor alto pelo gosto por piadas pesadas. Visão pragmática ligada à realidade de pobreza da família. Lealdade e empatia acima do centro pela proteção a amigos e à irmã.",
     confidence: "high",
     color: "#f28c28",
-    image: placeholder("Kenny McCormick"),
+    image: imageFor("kenny-mccormick", "Kenny McCormick"),
     result: {
       headline: "Você é mais parecido com Kenny McCormick!",
       summary: "Você tende a encarar a vida com coragem e bom humor, sem muito planejamento — e é mais leal do que deixa transparecer.",
@@ -126,7 +123,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Empatia e disciplina muito altas pela gentileza e obediência aos pais. Conflito mínimo: evita brigas. Visão muito idealista pelo otimismo e ingenuidade. Humor sério: raramente usa sarcasmo. O alter ego Professor Caos está registrado como contradição, não como pontuação.",
     confidence: "high",
     color: "#5bc0de",
-    image: placeholder("Butters Stotch"),
+    image: imageFor("butters-stotch", "Butters Stotch"),
     result: {
       headline: "Você é mais parecido com Butters Stotch!",
       summary: "Você tende a acreditar no lado bom das pessoas, evita conflitos e se importa muito com os outros.",
@@ -148,7 +145,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Decisão quase no mínimo pelas reações impulsivas recorrentes. Sociabilidade alta pelo gosto por plateia. Ambição alta pelas obsessões com projetos. Regras baixas: frequentemente desafia autoridades e convenções. Visão levemente idealista por abraçar causas com entusiasmo.",
     confidence: "high",
     color: "#8e5a2b",
-    image: placeholder("Randy Marsh"),
+    image: imageFor("randy-marsh", "Randy Marsh"),
     result: {
       headline: "Você é mais parecido com Randy Marsh!",
       summary: "Você tende a se empolgar rápido, agir no impulso e viver tudo com intensidade — para o bem e para o mal.",
@@ -170,7 +167,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Ambição e análise altas pela dedicação escolar e liderança. Confronto alto: enfrenta adversários de frente. Visão idealista pelo engajamento em causas. Regras levemente acima do centro: respeita instituições, mas as contesta quando acha injusto.",
     confidence: "medium",
     color: "#c2185b",
-    image: placeholder("Wendy Testaburger"),
+    image: imageFor("wendy-testaburger", "Wendy Testaburger"),
     result: {
       headline: "Você é mais parecido com Wendy Testaburger!",
       summary: "Você tende a ser determinado, gosta de liderar e luta pelo que acredita.",
@@ -192,7 +189,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Sociabilidade baixa pelo comportamento reservado. Ambição baixa pelo desejo de uma vida tranquila. Humor alto pelo sarcasmo seco. Visão muito pragmática. Regras baixas: desafia autoridades com frequência, ainda que sem alarde.",
     confidence: "medium",
     color: "#2f5d8a",
-    image: placeholder("Craig Tucker"),
+    image: imageFor("craig-tucker", "Craig Tucker"),
     result: {
       headline: "Você é mais parecido com Craig Tucker!",
       summary: "Você tende a manter a calma, falar só o necessário e ver o mundo com realismo — e um toque de ironia.",
@@ -214,7 +211,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Decisão muito impulsiva: reage em pânico em vez de analisar. Conflito baixo: foge de confrontos. Regras levemente altas por obedecer por medo. Humor sério: raramente faz piadas. A ansiedade é tratada como traço do personagem, não como avaliação clínica.",
     confidence: "medium",
     color: "#a67c52",
-    image: placeholder("Tweek Tweak"),
+    image: imageFor("tweek-tweak", "Tweek Tweak"),
     result: {
       headline: "Você é mais parecido com Tweek Tweak!",
       summary: "Você tende a se preocupar bastante com o que pode dar errado e encontra segurança em pessoas próximas.",
@@ -236,7 +233,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Humor quase máximo pela identidade de comediante. Sociabilidade muito alta pelo gosto por plateia. Ambição alta pela dedicação à carreira de humorista. Demais eixos moderados por falta de evidência forte em outra direção.",
     confidence: "medium",
     color: "#f2c94c",
-    image: placeholder("Jimmy Valmer"),
+    image: imageFor("jimmy-valmer", "Jimmy Valmer"),
     result: {
       headline: "Você é mais parecido com Jimmy Valmer!",
       summary: "Você tende a ser o centro das risadas, tem confiança de sobra e usa o humor como forma de se conectar.",
@@ -258,7 +255,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Perfil de baixa confiança: o personagem tem pouco diálogo. Sociabilidade e lealdade altas pela animação constante e convivência em grupo. Decisão impulsiva pelo entusiasmo. Demais eixos próximos do centro. A deficiência do personagem não foi usada como base para nenhum valor.",
     confidence: "low",
     color: "#e65100",
-    image: placeholder("Timmy Burch"),
+    image: imageFor("timmy-burch", "Timmy Burch"),
     result: {
       headline: "Você é mais parecido com Timmy Burch!",
       summary: "Você tende a encarar a vida com entusiasmo, adora estar entre amigos e contagia quem está por perto.",
@@ -280,7 +277,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Decisão muito analítica e regras acima do centro pelo papel recorrente de voz da razão. Visão pragmática. Empatia e lealdade altas pela amizade constante com Craig e Clyde. Conflito no centro: reclama, mas não busca briga.",
     confidence: "medium",
     color: "#6a4c93",
-    image: placeholder("Tolkien Black"),
+    image: imageFor("tolkien-black", "Tolkien Black"),
     result: {
       headline: "Você é mais parecido com Tolkien Black!",
       summary: "Você tende a ser a pessoa sensata do grupo, que pensa antes de agir e mantém os pés no chão.",
@@ -302,7 +299,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Sociabilidade alta pela busca de popularidade. Decisão impulsiva e conflito baixo pelo comportamento emotivo e por recuar diante de embates. Visão levemente idealista. Demais eixos moderados.",
     confidence: "medium",
     color: "#d35400",
-    image: placeholder("Clyde Donovan"),
+    image: imageFor("clyde-donovan", "Clyde Donovan"),
     result: {
       headline: "Você é mais parecido com Clyde Donovan!",
       summary: "Você tende a viver as emoções intensamente, gosta de estar entre pessoas e não esconde o que sente.",
@@ -324,7 +321,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Sociabilidade muito alta pela popularidade. Lealdade alta pela amizade com Wendy. Ambição e confronto acima do centro pela disputa por status. Personagem com menos material de destaque; perfil de confiança média.",
     confidence: "low",
     color: "#ff6f91",
-    image: placeholder("Bebe Stevens"),
+    image: imageFor("bebe-stevens", "Bebe Stevens"),
     result: {
       headline: "Você é mais parecido com Bebe Stevens!",
       summary: "Você tende a brilhar em grupo, tem confiança social e é fiel aos seus amigos mais próximos.",
@@ -346,7 +343,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Confronto muito alto e decisão muito impulsiva pelas explosões e mudanças radicais. Empatia e lealdade muito baixas pelo tratamento hostil aos alunos e aliados. Ambição alta pelas aspirações políticas e de fama. Humor alto e amargo.",
     confidence: "high",
     color: "#4caf50",
-    image: placeholder("Mr. Garrison"),
+    image: imageFor("mr-garrison", "Mr. Garrison"),
     result: {
       headline: "Você é mais parecido com Mr. Garrison!",
       summary: "Você tende a não ter filtro, enfrentar tudo de frente e seguir seus próprios impulsos — sem pedir licença.",
@@ -368,7 +365,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Empatia e sociabilidade altas pelo papel de confidente dos garotos. Visão pragmática pelos conselhos realistas. Lealdade alta pela proximidade com as crianças. Perfil baseado principalmente nas temporadas em que o personagem foi recorrente.",
     confidence: "medium",
     color: "#b5651d",
-    image: placeholder("Chef"),
+    image: imageFor("chef", "Chef"),
     result: {
       headline: "Você é mais parecido com Chef!",
       summary: "Você tende a acolher as pessoas, dar conselhos práticos e manter os pés no chão.",
@@ -390,7 +387,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Confronto quase máximo pelas reações agressivas. Regras e autoridade muito altas por impor normas como diretor. Visão muito idealista pela devoção às suas causas. Humor sério. Empatia moderada: defende grupos em tese, mas é duro com indivíduos.",
     confidence: "medium",
     color: "#1e88e5",
-    image: placeholder("PC Principal"),
+    image: imageFor("pc-principal", "PC Principal"),
     result: {
       headline: "Você é mais parecido com PC Principal!",
       summary: "Você tende a defender suas convicções com intensidade e acredita que regras existem para ser cumpridas.",
@@ -412,7 +409,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Perfil de baixa confiança: personagem secundário com pouco desenvolvimento. Sociabilidade e humor baixos pelo jeito sério e deslocado. Regras acima do centro. Demais eixos moderados. Nenhum valor foi baseado em condições de saúde do personagem.",
     confidence: "low",
     color: "#607d8b",
-    image: placeholder("Scott Malkinson"),
+    image: imageFor("scott-malkinson", "Scott Malkinson"),
     result: {
       headline: "Você é mais parecido com Scott Malkinson!",
       summary: "Você tende a levar as coisas a sério, seguir as regras e ser fiel ao seu próprio jeito.",
@@ -434,7 +431,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Perfil que mistura as fases da personagem. Decisão analítica e visão pragmática pela desilusão das temporadas mais recentes. Lealdade no centro: rompeu com quem a prejudicava. Sociabilidade levemente baixa.",
     confidence: "low",
     color: "#9c27b0",
-    image: placeholder("Heidi Turner"),
+    image: imageFor("heidi-turner", "Heidi Turner"),
     result: {
       headline: "Você é mais parecido com Heidi Turner!",
       summary: "Você tende a refletir antes de agir e aprendeu a olhar o mundo com mais realismo, sem perder a gentileza.",
@@ -456,7 +453,7 @@ export const characters: readonly CharacterDefinition[] = [
       "Decisão analítica e ambição alta pela carreira de advogado e pela capacidade de planejar para não ser descoberto. Humor alto e empatia baixa pelo lado provocador. Regras acima do centro pela fachada respeitável. Visão de mundo no centro: discurso de princípios, prática pragmática.",
     confidence: "medium",
     color: "#00897b",
-    image: placeholder("Gerald Broflovski"),
+    image: imageFor("gerald-broflovski", "Gerald Broflovski"),
     result: {
       headline: "Você é mais parecido com Gerald Broflovski!",
       summary: "Você tende a pensar estrategicamente, argumentar bem e ter um senso de humor provocador.",

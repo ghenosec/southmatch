@@ -53,7 +53,7 @@ Pela linha de comando (alternativa): `npx vercel` (pré-visualização) e `npx v
 - [ ] Consulta jurídica sobre o uso do nome **SouthMatch** e da marca **South Park**
 - [ ] Busca de anterioridade de marca no INPI (Brasil) e, se houver público internacional, USPTO/EUIPO
 - [ ] Confirmar que o projeto continua sem fins comerciais (sem anúncios, doações vinculadas ou venda)
-- [x] Nenhuma imagem, logotipo ou captura oficial; ilustrações originais e genéricas
+- [ ] Imagens dos personagens: licença/autorização obtida pelo responsável e registrada via `npm run images:sync`
 - [x] Aviso de projeto independente de fãs em todas as páginas (rodapé) e na página Sobre
 - [x] Personagens descritos com texto próprio; perguntas não citam a série
 
@@ -87,17 +87,43 @@ ajustes ou remoção do conteúdo a pedido dos titulares; nenhuma monetização.
 **Alternativa de menor risco:** publicar com um nome que não contenha "South" nem "Match" (ex.: um nome próprio
 do projeto) e manter "South Park" apenas como descrição do tema.
 
-## 5.1 Como adicionar ilustrações licenciadas
+## 5.1 Imagens dos personagens
 
-O site **não** inclui imagens oficiais. Se você obtiver ilustrações com licença que permita o uso:
+As imagens são fornecidas pelo responsável do projeto, que responde pelas licenças e autorizações. O código
+não baixa nem gera imagens de personagens.
 
-1. Coloque os arquivos em `public/themes/south-park/` (ex.: `stan.png`, quadrado, fundo transparente).
-2. Em `src/themes/south-park/characters.ts`, preencha a imagem do personagem:
-   `image: { src: "/themes/south-park/stan.png", alt: "Stan Marsh", license: "<origem e termos da licença>" }`
-3. Incremente `versions.profiles` em `config.ts` e rode `npm run check`.
+1. Copie um arquivo por personagem para `public/themes/south-park/`, com o nome `<slug>.png`
+   (aceita também `.webp`, `.jpg`, `.jpeg`, `.svg`). Recomendado: quadrado, 512×512, fundo transparente.
+2. Registre a origem e a licença: `npm run images:sync -- --license "origem e termos da licença"`.
+   Isso gera `src/themes/south-park/images.generated.ts`.
+3. Confira: `npm run images:check` e `npm run check`.
 
-A validação do tema recusa imagem sem `license` preenchida. Com a imagem configurada, o avatar passa a usá-la
-em todo o site; sem ela, continua o boneco original.
+| Personagem | Arquivo |
+|---|---|
+| Eric Cartman | `eric-cartman.png` |
+| Stan Marsh | `stan-marsh.png` |
+| Kyle Broflovski | `kyle-broflovski.png` |
+| Kenny McCormick | `kenny-mccormick.png` |
+| Butters Stotch | `butters-stotch.png` |
+| Randy Marsh | `randy-marsh.png` |
+| Wendy Testaburger | `wendy-testaburger.png` |
+| Craig Tucker | `craig-tucker.png` |
+| Tweek Tweak | `tweek-tweak.png` |
+| Jimmy Valmer | `jimmy-valmer.png` |
+| Timmy Burch | `timmy-burch.png` |
+| Tolkien Black | `tolkien-black.png` |
+| Clyde Donovan | `clyde-donovan.png` |
+| Bebe Stevens | `bebe-stevens.png` |
+| Mr. Garrison | `mr-garrison.png` |
+| Chef | `chef.png` |
+| PC Principal | `pc-principal.png` |
+| Scott Malkinson | `scott-malkinson.png` |
+| Heidi Turner | `heidi-turner.png` |
+| Gerald Broflovski | `gerald-broflovski.png` |
+
+Onde a imagem aparece: avatares em todo o site (landing, catálogo, página do personagem, resultado,
+comparação), imagem PNG do resultado e prévia de Open Graph da página do personagem. Personagem sem arquivo
+continua com o avatar genérico.
 
 ## 6. Depois do deploy
 

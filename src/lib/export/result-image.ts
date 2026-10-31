@@ -20,6 +20,8 @@ export interface ImageContent {
   readonly winnerName: string;
   readonly winnerColor: string;
   readonly initials: string;
+  /** Imagem do personagem fornecida pelo responsável (mesma origem), se houver. */
+  readonly imageSrc: string | null;
   readonly affinity: number;
   /** Até 3 características predominantes do usuário (rótulos de faixa). */
   readonly traits: readonly string[];
@@ -42,6 +44,7 @@ export function buildImageContent(theme: ThemeDefinition, result: QuizResult, si
     winnerName: winner.name,
     winnerColor: winner.color,
     initials: initialsOf(winner.name),
+    imageSrc: winner.image.src && winner.image.license ? winner.image.src : null,
     affinity: round(result.winner.affinity),
     traits: traits.length > 0 ? traits : ["Perfil equilibrado"],
     axes: theme.axes.map((a) => {
@@ -148,11 +151,35 @@ function avatar(ctx: CanvasRenderingContext2D, p: ImagePalette, f: ImageFonts, c
   ctx.fillText(c.initials, X(50), Y(90));
 }
 
+/** Desenha a imagem do personagem num círculo com borda; cabe em 190×190 a partir de (cx, top). */
+function characterImage(ctx: CanvasRenderingContext2D, p: ImagePalette, img: HTMLImageElement, cx: number, top: number) {
+  const size = 190;
+  const r = size / 2;
+  const cy = top + r;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = p.snow;
+  ctx.fill();
+  ctx.clip();
+  const scale = Math.min(size / img.naturalWidth, size / img.naturalHeight);
+  const w = img.naturalWidth * scale;
+  const h = img.naturalHeight * scale;
+  ctx.drawImage(img, cx - w / 2, cy - h / 2, w, h);
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = p.ink;
+  ctx.stroke();
+}
+
 export function renderResultImage(
   canvas: HTMLCanvasElement,
   c: ImageContent,
   p: ImagePalette,
   f: ImageFonts,
+  characterImg: HTMLImageElement | null = null,
 ): void {
   canvas.width = IMAGE_WIDTH;
   canvas.height = IMAGE_HEIGHT;
@@ -194,7 +221,8 @@ export function renderResultImage(
 
   // cartão principal
   paperCard(ctx, p, 70, 150, W - 140, 1080);
-  avatar(ctx, p, f, W / 2, 185, c);
+  if (characterImg) characterImage(ctx, p, characterImg, W / 2, 190);
+  else avatar(ctx, p, f, W / 2, 185, c);
 
   ctx.fillStyle = p.inkSoft;
   ctx.font = `bold 38px ${f.body}`;
@@ -297,12 +325,25 @@ export function readPageStyle(): { palette: ImagePalette; fonts: ImageFonts } {
   };
 }
 
+async function loadImage(src: string): Promise<HTMLImageElement | null> {
+  try {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = src;
+    await img.decode();
+    return img;
+  } catch {
+    return null; // arquivo ausente ou inválido: usa o avatar genérico
+  }
+}
+
 /** Gera o PNG e retorna o Blob. */
 export async function createResultImage(content: ImageContent): Promise<Blob> {
   await document.fonts.ready;
   const canvas = document.createElement("canvas");
   const { palette, fonts } = readPageStyle();
-  renderResultImage(canvas, content, palette, fonts);
+  const img = content.imageSrc ? await loadImage(content.imageSrc) : null;
+  renderResultImage(canvas, content, palette, fonts, img);
   return new Promise((resolve, reject) =>
     canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Falha ao gerar imagem."))), "image/png"),
   );
