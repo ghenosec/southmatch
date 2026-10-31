@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de design. Componentes usam as classes geradas
+ * (bg-sky, text-ink, etc.) em vez de cores fixas.
+ * Os valores finais serão refinados na Fase 4.
+ */
+@theme {
+  --color-sky: #7cc8f0;
+  --color-sky-deep: #3a9bd9;
+  --color-snow: #fbfdff;
+  --color-ink: #13294b;
+  --color-ink-soft: #2c4470;
+  --color-action: #d7263d;
+  --color-action-dark: #a81b2f;
+  --color-sun: #ffd23f;
+  --color-muted: #5b6b82;
+  --color-line: #d5e2f0;
+
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-snow);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-action);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

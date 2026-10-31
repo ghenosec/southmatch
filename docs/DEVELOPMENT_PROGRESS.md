@@ -1,0 +1,54 @@
+# Progresso do desenvolvimento
+
+## 30/10/2026 — Fases 1 e 2
+
+### Feito
+- Next.js 16.4.3 + React 19.3 + TypeScript estrito + Tailwind 4, gerado com `create-next-app`
+  (em pasta temporária, para não tocar em `docs/`) e copiado para o projeto.
+- Vitest 5 (com cobertura) e Playwright 1.64 (desktop + mobile, contra build de produção).
+- Contratos genéricos em `src/core/types`.
+- Motor completo: pontuação, polaridade, pesos, distância, afinidade, ranking com desempate
+  estável, interpretação, templates, validação de tema e de respostas, versões.
+- Tema fictício mínimo (3 eixos, 6 perguntas, 3 personagens) rodando no mesmo motor.
+- Serviço `computeThemeResult` ligando tema e motor.
+- Layout base em pt-BR, tokens de cor, foco visível, movimento reduzido; página inicial provisória.
+- Documentação: README, ARCHITECTURE, METHODOLOGY, TESTING (+ esqueletos de QUESTION_AUDIT e CHARACTER_PROFILES).
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 132 testes Vitest ✅ · build ✅ · 4 testes Playwright ✅
+
+### Decisões
+- Validação manual (sem Zod) para manter o motor sem dependências.
+- `src/styles/` omitida (tokens em `src/app/globals.css`, padrão do Tailwind 4).
+- Repositório Git inicializado depois, com autorização (ver Fase 3).
+
+### Pendências
+- Revisar conflito de marca do nome "SouthMatch" antes de publicar.
+- Ilustrações: usar apenas placeholders/arte original até haver recursos licenciados.
+
+## 30/10/2026 — Fase 3: tema South Park
+
+### Feito
+- Git inicializado (branch `main` e branch de trabalho `develop`), sem commits.
+- `src/themes/south-park/`: `config.ts`, `axes.ts`, `descriptions.ts`, `questions.ts`,
+  `characters.ts`, `assets.ts`, `index.ts`; tema registrado em `registry.ts`.
+- 9 eixos com 5 faixas interpretativas cada (45 textos).
+- 45 afirmações originais, 23 diretas / 22 invertidas, apresentação intercalada por rodadas.
+- 20 personagens com descrição curta e longa, traços, pontos fortes, limitações, contradições,
+  vetor, justificativa, cor, placeholder de imagem e texto de resultado.
+- Testes de integridade (`south-park.test.ts`) e de calibração (`calibration.test.ts`).
+- `docs/QUESTION_AUDIT.md` e `docs/CHARACTER_PROFILES.md` completos (tabelas geradas a partir dos dados).
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 162 testes Vitest ✅ · build ✅ · 4 testes Playwright ✅
+
+### Achados da calibração
+- Todos os 20 personagens são alcançáveis; nenhum par tem afinidade ≥ 90.
+- Com perfis uniformes, todos vencem (0,9% a 12,2%).
+- Com respostas aleatórias/neutras há **viés para o centro**: Heidi vence 31,6%. Causa: perfis de
+  baixa confiança com valores moderados. Não foi "corrigido" artificialmente; ver opções em
+  CHARACTER_PROFILES.md.
+
+### Pendências
+- **Revisão editorial humana** dos 20 perfis e das 45 afirmações (sobretudo Heidi, Scott, Timmy, Bebe).
+- Teste-piloto com pessoas reais (duração, distribuição, correlação entre eixos).
