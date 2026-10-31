@@ -15,6 +15,8 @@ export default defineConfig({
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
     { name: "mobile", use: { ...devices["Pixel 7"] } },
+    // Celular pequeno (360 px), para pegar estouros de largura.
+    { name: "small", use: { ...devices["Pixel 7"], viewport: { width: 360, height: 740 } }, testMatch: /pages.spec.ts/ },
   ],
   webServer: {
     // Testa o build de produção, não o servidor de desenvolvimento.

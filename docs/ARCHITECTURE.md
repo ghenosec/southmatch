@@ -68,9 +68,11 @@ src/
     shared/            peças reutilizáveis (escala Likert pt-BR)
     example-theme/     tema fictício mínimo (3 eixos, 6 perguntas, 3 perfis)
     south-park/        tema principal (Fase 3)
-  services/quiz/       tema + motor → resultado pronto para a interface
-  lib/storage|sharing|export   persistência local, links, imagem (Fases 4–6)
-  components/          C. componentes de interface (Fases 4–7)
+  services/quiz/       tema ativo, tema + motor → resultado, estado de navegação do quiz
+  lib/storage/         progresso salvo no localStorage (versionado e validado)
+  lib/sharing|export   links e imagem do resultado (Fase 6)
+  components/          C. interface: layout, landing, quiz, results, characters, ui
+  proxy.ts             responde 404 real para slugs de personagem inexistentes
 tests/
   core/  themes/  integration/  e2e/
 ```
@@ -134,3 +136,15 @@ imagem (`src: null` usa placeholder). Incremente `versions.profiles`.
 
 ### Configurar visual
 Cores do tema ficam em `theme.visual.colors`; tokens globais em `src/app/globals.css`.
+
+## Interface (Fase 4)
+
+- **Tema ativo:** `getActiveTheme()` em `src/services/quiz`. Trocar `DEFAULT_THEME_ID` muda o tema do site.
+- **Paleta configurável:** `themeVariables()` transforma `theme.visual.colors` em variáveis CSS no `<body>`,
+  sobrescrevendo os tokens de `globals.css`. Componentes só usam classes como `bg-sky` e `text-ink`.
+- **Páginas estáticas:** todas as rotas são pré-renderizadas no build. Quiz e resultado dependem do
+  `localStorage`, então usam `use(browser())` (React 19.3) dentro de `<Suspense>`: o servidor entrega o
+  fallback e o navegador renderiza o conteúdo.
+- **Estado do quiz:** reducer puro (`quiz-state.ts`), testado sem React.
+- **404 com Cache Components:** a página de personagem começa a ser transmitida antes de `notFound()`,
+  o que daria status 200. O `proxy.ts` verifica o slug antes e reescreve para uma rota inexistente (404 real).

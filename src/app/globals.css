@@ -1,29 +1,68 @@
 @import "tailwindcss";
 
 /*
- * Tokens de design. Componentes usam as classes geradas
- * (bg-sky, text-ink, etc.) em vez de cores fixas.
- * Os valores finais serão refinados na Fase 4.
+ * Tokens de design.
+ * As cores principais são sobrescritas em tempo de execução pelas cores do
+ * tema ativo (ver src/components/layout/theme-variables.ts). Componentes usam
+ * apenas as classes geradas (bg-sky, text-ink…), nunca cores fixas.
  */
 @theme {
   --color-sky: #7cc8f0;
   --color-sky-deep: #3a9bd9;
+  --color-sky-pale: #e4f4fc;
   --color-snow: #fbfdff;
   --color-ink: #13294b;
   --color-ink-soft: #2c4470;
   --color-action: #d7263d;
   --color-action-dark: #a81b2f;
   --color-sun: #ffd23f;
-  --color-muted: #5b6b82;
+  --color-muted: #52627a;
   --color-line: #d5e2f0;
+  --color-pine: #2f6b4f;
+  --color-pine-dark: #1f4a37;
+  --color-rock: #8a9bb3;
 
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-lilita), var(--font-nunito), ui-sans-serif, sans-serif;
 
   --radius-card: 1.25rem;
+
+  /* Sombra "recortada": deslocada e sem desfoque, como papel colado. */
+  --shadow-paper: 4px 5px 0 0 var(--color-ink);
+  --shadow-paper-sm: 2px 3px 0 0 var(--color-ink);
+
+  --animate-snow: snow-fall 9s linear infinite;
+  --animate-pop: pop 180ms ease-out;
+
+  @keyframes snow-fall {
+    from {
+      transform: translateY(-10%);
+    }
+    to {
+      transform: translateY(110%);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.96);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
+/* Cartão de papel recortado. */
+@utility paper {
+  background: var(--color-snow);
+  border: 3px solid var(--color-ink);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-paper);
 }
 
 html {
   color-scheme: light;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -34,6 +73,7 @@ body {
 :focus-visible {
   outline: 3px solid var(--color-action);
   outline-offset: 3px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -12,8 +12,9 @@ e descubra com qual personagem de South Park você mais se parece.
 | 1. Fundação | ✅ concluída |
 | 2. Motor independente | ✅ concluída |
 | 3. Tema South Park | ✅ concluída (aguarda revisão editorial) |
-| 4. Experiência visual | ⏳ próxima |
-| 5–9 | pendentes |
+| 4. Experiência visual | ✅ concluída |
+| 5. Resultados | ⏳ próxima |
+| 6–9 | pendentes |
 
 Detalhes em [`docs/DEVELOPMENT_PROGRESS.md`](docs/DEVELOPMENT_PROGRESS.md).
 

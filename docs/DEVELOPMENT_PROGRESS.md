@@ -52,3 +52,29 @@ Lint ✅ · TypeScript ✅ · 162 testes Vitest ✅ · build ✅ · 4 testes Pla
 ### Pendências
 - **Revisão editorial humana** dos 20 perfis e das 45 afirmações (sobretudo Heidi, Scott, Timmy, Bebe).
 - Teste-piloto com pessoas reais (duração, distribuição, correlação entre eixos).
+
+## 30/10/2026 — Fase 4: experiência visual
+
+### Feito
+- Design system: tokens em `globals.css` sobrescritos pelas cores do tema, fontes Nunito + Lilita One,
+  cartões de "papel recortado", botões, foco visível, movimento reduzido.
+- Landing completa: hero com cena de inverno original em SVG, como funciona, os 9 eixos, prévia de
+  personagens, FAQ, rodapé com aviso de independência e links.
+- Questionário: uma afirmação por vez, 5 opções acessíveis (rádio nativo), avanço automático opcional
+  (só por clique/toque; teclado confirma com Enter), voltar, revisão de respostas, reiniciar com confirmação,
+  progresso salvo e retomada, anúncios para leitor de tela, foco gerenciado.
+- Armazenamento local versionado, com expiração de 30 dias e descarte de dados inválidos.
+- Resultado básico real: vencedor, afinidade, top 5 e 9 barras bipolares (Fase 5 amplia).
+- Páginas de apoio funcionais: catálogo, personagem individual, metodologia, privacidade, sobre, 404.
+- `proxy.ts` para 404 real em personagens inexistentes.
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 191 testes Vitest ✅ · build ✅ · 53 testes Playwright ✅ · inspeção visual em 375 px e desktop
+
+### Problemas encontrados e corrigidos
+- Cabeçalho estourava a largura a 375 px → ajustado e coberto por teste a 360 px.
+- `notFound()` devolvia 200 com Cache Components → resolvido no Proxy.
+
+### Pendências
+- Fase 5: gráficos (Recharts), comparação detalhada, explicações personalizadas e perfil comportamental.
+- Estimativa de 7–10 minutos ainda não validada com usuários.

@@ -24,28 +24,32 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 | `tests/core/validation.test.ts` | 14 tipos de tema inválido, faixas, respostas vindas de fora |
 | `tests/core/architecture.test.ts` | motor sem React/Next/navegador/temas; temas sem lógica; 1–12 eixos; tema de exemplo |
 | `tests/integration/quiz-service.test.ts` | serviço que liga tema e motor |
-| `tests/e2e/smoke.spec.ts` | página inicial em desktop e mobile, sem rolagem horizontal |
+| `tests/integration/quiz-state.test.ts` | navegação do quiz: responder, avançar, voltar, alterar, limites, reiniciar |
+| `tests/integration/quiz-progress.test.ts` | armazenamento local: chave versionada, 12 tipos de dado inválido, expiração, armazenamento indisponível |
+| `tests/e2e/quiz.spec.ts` | iniciar, teclado e nomes acessíveis, avanço automático, voltar/alterar, retomar, reiniciar, progresso corrompido, 45 respostas até o resultado, ausência de requisições externas |
+| `tests/e2e/pages.spec.ts` | todas as páginas carregam sem rolagem horizontal (também a 360 px), elementos da landing, catálogo, 404 real, link de pular conteúdo |
 | `tests/themes/south-park.test.ts` | 45 perguntas, 5 por eixo, 9 eixos, 20 personagens, IDs únicos, polaridades 23/22, múltiplos de 5, textos, licença de imagens |
 | `tests/themes/calibration.test.ts` | alcance de todos os personagens, pares parecidos, distribuição de vencedores, empates, estabilidade |
 
 Cenários aleatórios usam um gerador com semente fixa (`seededRandom` em `tests/fixtures.ts`)
 para serem reprodutíveis.
 
-## Último resultado (Fase 3, 30/10/2026)
+## Último resultado (Fase 4, 30/10/2026)
 
 | Verificação | Resultado |
 |---|---|
 | Lint | ✅ sem erros |
 | TypeScript | ✅ sem erros |
-| Vitest | ✅ 9 arquivos, 162 testes |
-| Build de produção | ✅ |
-| Playwright | ✅ 4 testes (desktop + mobile) |
+| Vitest | ✅ 11 arquivos, 191 testes |
+| Build de produção | ✅ todas as rotas estáticas |
+| Playwright | ✅ 53 testes (desktop, mobile 412 px, mobile 360 px) |
 
 Relatório de calibração: `npx vitest run tests/themes/calibration.test.ts --silent=false`
 (resultados em `docs/CHARACTER_PROFILES.md`).
 
 ## Pendente
 
-- Testes de interface do quiz, resultado, compartilhamento — Fases 4–6.
-- Testes de privacidade (armazenamento, links corrompidos) — Fases 4 e 6.
+- Testes de comparação, gráficos e compartilhamento — Fases 5 e 6.
+- Testes de links compartilhados corrompidos — Fase 6.
+- Auditoria automatizada de acessibilidade (ex.: axe) — Fase 8.
 - Calibração com respostas reais (teste-piloto) e correlação entre eixos — Fase 8.

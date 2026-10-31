@@ -1,15 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito } from "next/font/google";
+import { Lilita_One, Nunito } from "next/font/google";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { themeVariables } from "@/components/layout/theme-variables";
+import { getActiveTheme } from "@/services/quiz";
 import "./globals.css";
 
-const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
-});
+const nunito = Nunito({ variable: "--font-nunito", subsets: ["latin"] });
+const lilita = Lilita_One({ variable: "--font-lilita", subsets: ["latin"], weight: "400" });
+
+const theme = getActiveTheme();
 
 export const metadata: Metadata = {
   title: {
-    default: "SouthMatch — Qual personagem de South Park você seria?",
+    default: `SouthMatch — ${theme.texts.title}`,
     template: "%s | SouthMatch",
   },
   description:
@@ -18,13 +22,25 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#7cc8f0",
+  themeColor: theme.visual.colors.primary,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${nunito.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+    <html lang="pt-BR" className={`${nunito.variable} ${lilita.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col font-sans" style={themeVariables(theme.visual)}>
+        <a
+          href="#conteudo"
+          className="sr-only z-50 rounded-md bg-sun px-4 py-2 font-bold text-ink focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+        >
+          Pular para o conteúdo
+        </a>
+        <SiteHeader />
+        <div id="conteudo" className="flex flex-1 flex-col">
+          {children}
+        </div>
+        <SiteFooter disclaimer={theme.texts.disclaimer} />
+      </body>
     </html>
   );
 }
