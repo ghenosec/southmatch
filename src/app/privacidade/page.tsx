@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContentPage } from "@/components/layout/content-page";
+import { ClearDataButton } from "@/components/privacy/clear-data-button";
 
 export const metadata: Metadata = {
   title: "Privacidade",
@@ -24,8 +25,9 @@ export default function PrivacyPage() {
         Para você poder continuar o teste depois, guardamos no armazenamento local do navegador (<code>localStorage</code>)
         as suas respostas, a pergunta em que você parou e a sua preferência de avanço automático. Esses dados nunca
         saem do seu dispositivo, expiram em 30 dias e são apagados quando você reinicia o teste. Você também pode
-        apagá-los limpando os dados do site no navegador.
+        apagá-los com o botão abaixo ou limpando os dados do site no navegador.
       </p>
+      <ClearDataButton />
 
       <h2>Dados técnicos de conexão</h2>
       <p>

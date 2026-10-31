@@ -15,8 +15,9 @@ e descubra com qual personagem de South Park você mais se parece.
 | 4. Experiência visual | ✅ concluída |
 | 5. Resultados | ✅ concluída |
 | 6. Compartilhamento | ✅ concluída |
-| 7. Catálogo e conteúdo | ⏳ próxima (páginas básicas já existem) |
-| 8–9 | pendentes |
+| 7. Catálogo e conteúdo | ✅ concluída |
+| 8. Calibração e qualidade | ⏳ próxima |
+| 9. Publicação | pendente |
 
 Detalhes em [`docs/DEVELOPMENT_PROGRESS.md`](docs/DEVELOPMENT_PROGRESS.md).
 

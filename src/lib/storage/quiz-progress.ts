@@ -150,3 +150,27 @@ export function clearProgress(store: KeyValueStore | null, theme: ThemeDefinitio
     /* ignorado */
   }
 }
+
+/** Prefixo de todas as chaves que o site grava no navegador. */
+export const SITE_KEY_PREFIX = "southmatch:";
+
+export interface EnumerableStore extends KeyValueStore {
+  readonly length: number;
+  key(index: number): string | null;
+}
+
+/** Apaga tudo o que o SouthMatch guardou neste navegador. Retorna quantos itens removeu. */
+export function clearAllSiteData(store: EnumerableStore | null): number {
+  if (!store) return 0;
+  const keys: string[] = [];
+  try {
+    for (let i = 0; i < store.length; i++) {
+      const k = store.key(i);
+      if (k?.startsWith(SITE_KEY_PREFIX)) keys.push(k);
+    }
+    for (const k of keys) store.removeItem(k);
+  } catch {
+    return 0;
+  }
+  return keys.length;
+}

@@ -118,3 +118,24 @@ Lint ✅ · TypeScript ✅ · 233 testes Vitest ✅ · build ✅ · 79 testes Pl
 ### Decisão pendente
 - Pré-visualização personalizada em redes sociais exigiria processamento no servidor. Não implementado;
   links mostram a pré-visualização genérica do site (a definir na Fase 9, junto com Open Graph).
+
+## 30/10/2026 — Fase 7: catálogo e conteúdo
+
+### Feito
+- Confiança editorial (alta/média/baixa) em cada perfil, exibida na página do personagem.
+- Catálogo com busca por nome/traço e ordenação por qualquer eixo.
+- Página do personagem: destaques, justificativa, confiança, 3 personagens parecidos, anterior/próximo, metadados próprios.
+- Metodologia: exemplo numérico calculado pelo motor, regras das explicações, resumo da calibração.
+- Privacidade: botão "Apagar meus dados deste navegador".
+- Sobre: como o projeto é feito e aviso sobre direitos.
+
+### Problema encontrado e corrigido
+- Rótulos de faixa no masculino ("Muito ambicioso") apareciam na página de personagens femininas.
+  Nas páginas de personagem agora aparece "Eixo: valor"; coberto por teste E2E.
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 241 testes Vitest ✅ · build ✅ · 94 testes Playwright ✅
+
+### Pendência editorial
+- No resultado do usuário, rótulos e polos usam o masculino genérico ("Muito reservado", "Extrovertido").
+  Alternativas: reescrever em forma neutra ou oferecer escolha de forma de tratamento.

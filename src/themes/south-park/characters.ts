@@ -36,6 +36,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([75, 5, 20, 65, 90, 95, 80, 25, 80]),
     editorialRationale:
       "Ambição e confronto quase máximos pelos esquemas recorrentes e provocações. Empatia mínima pela indiferença ao sofrimento alheio. Regras baixas: ignora autoridade alheia. Decisão acima do centro porque seus planos costumam ser elaborados, ainda que movidos por impulso. Lealdade baixa: troca de lado quando convém.",
+    confidence: "high",
     color: "#d7263d",
     image: placeholder("Eric Cartman"),
     result: {
@@ -57,6 +58,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([55, 70, 50, 55, 45, 35, 55, 80, 50]),
     editorialRationale:
       "Perfil moderado na maioria dos eixos, refletindo seu papel de 'garoto comum'. Empatia e lealdade altas pela amizade constante com Kyle e pela preocupação com injustiças. Visão de mundo no centro: alterna entre idealismo e cinismo ao longo da série.",
+    confidence: "high",
     color: "#3a6fd9",
     image: placeholder("Stan Marsh"),
     result: {
@@ -78,6 +80,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([55, 75, 45, 70, 80, 55, 40, 75, 20]),
     editorialRationale:
       "Visão de mundo muito idealista pelos discursos morais recorrentes. Confronto alto pelas discussões constantes, sobretudo com Cartman. Decisão analítica por ser estudioso e argumentativo. Empatia e lealdade altas.",
+    confidence: "high",
     color: "#2e9e5b",
     image: placeholder("Kyle Broflovski"),
     result: {
@@ -99,6 +102,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([55, 65, 20, 25, 40, 25, 80, 75, 70]),
     editorialRationale:
       "Impulsividade e rebeldia pela disposição a riscos e travessuras. Humor alto pelo gosto por piadas pesadas. Visão pragmática ligada à realidade de pobreza da família. Lealdade e empatia acima do centro pela proteção a amigos e à irmã.",
+    confidence: "high",
     color: "#f28c28",
     image: placeholder("Kenny McCormick"),
     result: {
@@ -120,6 +124,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([65, 90, 90, 30, 10, 20, 10, 80, 10]),
     editorialRationale:
       "Empatia e disciplina muito altas pela gentileza e obediência aos pais. Conflito mínimo: evita brigas. Visão muito idealista pelo otimismo e ingenuidade. Humor sério: raramente usa sarcasmo. O alter ego Professor Caos está registrado como contradição, não como pontuação.",
+    confidence: "high",
     color: "#5bc0de",
     image: placeholder("Butters Stotch"),
     result: {
@@ -141,6 +146,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([85, 45, 20, 5, 65, 75, 50, 45, 40]),
     editorialRationale:
       "Decisão quase no mínimo pelas reações impulsivas recorrentes. Sociabilidade alta pelo gosto por plateia. Ambição alta pelas obsessões com projetos. Regras baixas: frequentemente desafia autoridades e convenções. Visão levemente idealista por abraçar causas com entusiasmo.",
+    confidence: "high",
     color: "#8e5a2b",
     image: placeholder("Randy Marsh"),
     result: {
@@ -162,6 +168,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([65, 70, 55, 80, 75, 85, 40, 55, 30]),
     editorialRationale:
       "Ambição e análise altas pela dedicação escolar e liderança. Confronto alto: enfrenta adversários de frente. Visão idealista pelo engajamento em causas. Regras levemente acima do centro: respeita instituições, mas as contesta quando acha injusto.",
+    confidence: "medium",
     color: "#c2185b",
     image: placeholder("Wendy Testaburger"),
     result: {
@@ -183,6 +190,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([25, 40, 25, 65, 45, 15, 75, 55, 85]),
     editorialRationale:
       "Sociabilidade baixa pelo comportamento reservado. Ambição baixa pelo desejo de uma vida tranquila. Humor alto pelo sarcasmo seco. Visão muito pragmática. Regras baixas: desafia autoridades com frequência, ainda que sem alarde.",
+    confidence: "medium",
     color: "#2f5d8a",
     image: placeholder("Craig Tucker"),
     result: {
@@ -204,6 +212,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([30, 60, 60, 10, 25, 20, 15, 65, 50]),
     editorialRationale:
       "Decisão muito impulsiva: reage em pânico em vez de analisar. Conflito baixo: foge de confrontos. Regras levemente altas por obedecer por medo. Humor sério: raramente faz piadas. A ansiedade é tratada como traço do personagem, não como avaliação clínica.",
+    confidence: "medium",
     color: "#a67c52",
     image: placeholder("Tweek Tweak"),
     result: {
@@ -225,6 +234,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([90, 55, 45, 55, 50, 75, 95, 65, 55]),
     editorialRationale:
       "Humor quase máximo pela identidade de comediante. Sociabilidade muito alta pelo gosto por plateia. Ambição alta pela dedicação à carreira de humorista. Demais eixos moderados por falta de evidência forte em outra direção.",
+    confidence: "medium",
     color: "#f2c94c",
     image: placeholder("Jimmy Valmer"),
     result: {
@@ -246,6 +256,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([85, 65, 45, 30, 40, 55, 50, 70, 45]),
     editorialRationale:
       "Perfil de baixa confiança: o personagem tem pouco diálogo. Sociabilidade e lealdade altas pela animação constante e convivência em grupo. Decisão impulsiva pelo entusiasmo. Demais eixos próximos do centro. A deficiência do personagem não foi usada como base para nenhum valor.",
+    confidence: "low",
     color: "#e65100",
     image: placeholder("Timmy Burch"),
     result: {
@@ -267,6 +278,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([50, 70, 70, 80, 50, 55, 45, 70, 70]),
     editorialRationale:
       "Decisão muito analítica e regras acima do centro pelo papel recorrente de voz da razão. Visão pragmática. Empatia e lealdade altas pela amizade constante com Craig e Clyde. Conflito no centro: reclama, mas não busca briga.",
+    confidence: "medium",
     color: "#6a4c93",
     image: placeholder("Tolkien Black"),
     result: {
@@ -288,6 +300,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([75, 50, 45, 20, 25, 40, 55, 60, 35]),
     editorialRationale:
       "Sociabilidade alta pela busca de popularidade. Decisão impulsiva e conflito baixo pelo comportamento emotivo e por recuar diante de embates. Visão levemente idealista. Demais eixos moderados.",
+    confidence: "medium",
     color: "#d35400",
     image: placeholder("Clyde Donovan"),
     result: {
@@ -309,6 +322,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([85, 45, 45, 45, 60, 65, 50, 70, 60]),
     editorialRationale:
       "Sociabilidade muito alta pela popularidade. Lealdade alta pela amizade com Wendy. Ambição e confronto acima do centro pela disputa por status. Personagem com menos material de destaque; perfil de confiança média.",
+    confidence: "low",
     color: "#ff6f91",
     image: placeholder("Bebe Stevens"),
     result: {
@@ -330,6 +344,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([55, 10, 30, 15, 85, 70, 75, 15, 60]),
     editorialRationale:
       "Confronto muito alto e decisão muito impulsiva pelas explosões e mudanças radicais. Empatia e lealdade muito baixas pelo tratamento hostil aos alunos e aliados. Ambição alta pelas aspirações políticas e de fama. Humor alto e amargo.",
+    confidence: "high",
     color: "#4caf50",
     image: placeholder("Mr. Garrison"),
     result: {
@@ -351,6 +366,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([80, 80, 45, 60, 45, 35, 55, 75, 75]),
     editorialRationale:
       "Empatia e sociabilidade altas pelo papel de confidente dos garotos. Visão pragmática pelos conselhos realistas. Lealdade alta pela proximidade com as crianças. Perfil baseado principalmente nas temporadas em que o personagem foi recorrente.",
+    confidence: "medium",
     color: "#b5651d",
     image: placeholder("Chef"),
     result: {
@@ -372,6 +388,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([70, 55, 85, 35, 95, 65, 15, 70, 15]),
     editorialRationale:
       "Confronto quase máximo pelas reações agressivas. Regras e autoridade muito altas por impor normas como diretor. Visão muito idealista pela devoção às suas causas. Humor sério. Empatia moderada: defende grupos em tese, mas é duro com indivíduos.",
+    confidence: "medium",
     color: "#1e88e5",
     image: placeholder("PC Principal"),
     result: {
@@ -393,6 +410,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([35, 45, 65, 50, 40, 40, 20, 40, 50]),
     editorialRationale:
       "Perfil de baixa confiança: personagem secundário com pouco desenvolvimento. Sociabilidade e humor baixos pelo jeito sério e deslocado. Regras acima do centro. Demais eixos moderados. Nenhum valor foi baseado em condições de saúde do personagem.",
+    confidence: "low",
     color: "#607d8b",
     image: placeholder("Scott Malkinson"),
     result: {
@@ -414,6 +432,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([40, 55, 55, 65, 40, 45, 45, 50, 65]),
     editorialRationale:
       "Perfil que mistura as fases da personagem. Decisão analítica e visão pragmática pela desilusão das temporadas mais recentes. Lealdade no centro: rompeu com quem a prejudicava. Sociabilidade levemente baixa.",
+    confidence: "low",
     color: "#9c27b0",
     image: placeholder("Heidi Turner"),
     result: {
@@ -435,6 +454,7 @@ export const characters: readonly CharacterDefinition[] = [
     scores: v([50, 25, 60, 70, 60, 70, 70, 35, 50]),
     editorialRationale:
       "Decisão analítica e ambição alta pela carreira de advogado e pela capacidade de planejar para não ser descoberto. Humor alto e empatia baixa pelo lado provocador. Regras acima do centro pela fachada respeitável. Visão de mundo no centro: discurso de princípios, prática pragmática.",
+    confidence: "medium",
     color: "#00897b",
     image: placeholder("Gerald Broflovski"),
     result: {

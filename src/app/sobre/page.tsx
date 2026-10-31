@@ -28,10 +28,22 @@ export default function AboutPage() {
         perfis. South Park é o primeiro tema; outros podem vir no futuro sem reescrever o algoritmo.
       </p>
 
+      <h2>Como é feito</h2>
+      <ul>
+        <li>Sem cadastro, sem banco de dados e sem serviços pagos: perguntas, eixos e perfis ficam no próprio código do site.</li>
+        <li>O cálculo roda no seu navegador, com um algoritmo determinístico e testado automaticamente.</li>
+        <li>
+          Os perfis dos personagens são interpretações editoriais de comportamentos recorrentes na série, com a
+          justificativa publicada em cada página de personagem.
+        </li>
+        <li>As ilustrações são originais e provisórias; nenhuma imagem oficial é usada.</li>
+      </ul>
+
       <h2>Projeto independente</h2>
       <p>{theme.texts.disclaimer}</p>
       <p>
-        Nenhuma imagem oficial é usada. As ilustrações do site são originais e provisórias.
+        O aviso de independência não é uma autorização de uso. Se você representa os titulares dos direitos e tem
+        alguma objeção, o conteúdo pode ser ajustado ou removido.
       </p>
     </ContentPage>
   );

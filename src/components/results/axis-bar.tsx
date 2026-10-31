@@ -12,17 +12,20 @@ export function AxisBar({
   compareScore,
   compareLabel,
   showDescription = true,
+  showBandLabel = true,
 }: {
   axis: AxisDefinition;
   score: number;
   compareScore?: number;
   compareLabel?: string;
   showDescription?: boolean;
+  /** Rótulos de faixa são adjetivos no masculino; desligue ao descrever personagens. */
+  showBandLabel?: boolean;
 }) {
   const value = round(score);
   const band = findBand(axis, score);
   const srText =
-    `${axis.name}: ${value} de 100, numa escala de ${axis.lowPole} (0) a ${axis.highPole} (100). ${band.label}.` +
+    `${axis.name}: ${value} de 100, numa escala de ${axis.lowPole} (0) a ${axis.highPole} (100).${showBandLabel ? ` ${band.label}.` : ""}` +
     (compareScore !== undefined && compareLabel ? ` ${compareLabel}: ${round(compareScore)}.` : "");
 
   return (
@@ -31,7 +34,8 @@ export function AxisBar({
         <h3 className="font-extrabold">{axis.name}</h3>
         <span className="text-sm font-extrabold tabular-nums">
           {value}
-          <span className="text-muted">/100</span> · {band.label}
+          <span className="text-muted">/100</span>
+          {showBandLabel && <> · {band.label}</>}
         </span>
       </div>
       <p className="sr-only">{srText}</p>

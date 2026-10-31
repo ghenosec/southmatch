@@ -193,3 +193,17 @@ Cores do tema ficam em `theme.visual.colors`; tokens globais em `src/app/globals
   cores e fontes da página. Conteúdo montado por `buildImageContent` (puro, testado).
 - **Interface:** `ResultApp` decide entre resultado compartilhado (fragmento, reage a `hashchange`) e local.
   `ResultView` em modo `shared` mostra aviso, esconde "Compartilhar" e "Refazer" e oferece "Fazer o meu teste".
+
+## Catálogo e conteúdo (Fase 7)
+
+- `CharacterDefinition.confidence` (opcional: `high` | `medium` | `low`) torna pública a confiança editorial
+  de cada perfil. Validado em `validateTheme`.
+- `src/services/quiz/characters.ts`: personagens parecidos (mesma afinidade do teste, via `rankProfiles`),
+  eixos mais marcantes e navegação anterior/próximo. Nenhuma regra por personagem.
+- Catálogo (`CharacterCatalog`): busca por nome, descrição ou traço, ordenação por qualquer eixo. É componente
+  cliente sem APIs do navegador, então a lista continua pré-renderizada no HTML.
+- Metodologia: exemplo numérico (`WorkedExample`) calculado pelo próprio motor no build.
+- Privacidade: botão que apaga todas as chaves `southmatch:*` do `localStorage` (`clearAllSiteData`).
+- **Gênero gramatical:** os rótulos de faixa ("Muito empático") são adjetivos no masculino. Nas páginas de
+  personagem eles foram trocados por "Eixo: valor" (`AxisBar showBandLabel={false}`) para não descrever
+  personagens femininas no masculino. Para o usuário, o masculino genérico continua — decisão editorial pendente.

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  clearAllSiteData,
   clearProgress,
   loadProgress,
   parseProgress,
@@ -102,5 +103,33 @@ describe("progresso salvo", () => {
     const changed = { ...theme, questions: theme.questions.slice(1) };
     expect(questionSignature(changed)).not.toBe(questionSignature(theme));
     expect(questionSignature(theme)).toMatch(/^[0-9a-f]{8}$/);
+  });
+});
+
+describe("apagar todos os dados do site", () => {
+  function enumerable(entries: Record<string, string>) {
+    const data = new Map(Object.entries(entries));
+    return {
+      data,
+      get length() {
+        return data.size;
+      },
+      key: (i: number) => [...data.keys()][i] ?? null,
+      getItem: (k: string) => data.get(k) ?? null,
+      setItem: (k: string, v: string) => void data.set(k, v),
+      removeItem: (k: string) => void data.delete(k),
+    };
+  }
+
+  it("remove só as chaves do SouthMatch", () => {
+    const store = enumerable({
+      "southmatch:progress:v1:south-park": "{}",
+      "southmatch:prefs:auto-advance": "0",
+      "outro-site": "x",
+    });
+    expect(clearAllSiteData(store)).toBe(2);
+    expect([...store.data.keys()]).toEqual(["outro-site"]);
+    expect(clearAllSiteData(store)).toBe(0);
+    expect(clearAllSiteData(null)).toBe(0);
   });
 });

@@ -186,6 +186,9 @@ export function validateTheme(theme: ThemeDefinition): ValidationReport {
       }
     }
     if (!HEX_COLOR.test(c.color)) issues.push({ path: `${p}.color`, message: "Cor deve ser #rrggbb." });
+    if (c.confidence !== undefined && !["high", "medium", "low"].includes(c.confidence)) {
+      issues.push({ path: `${p}.confidence`, message: "Confiança deve ser high, medium ou low." });
+    }
     if (!isNonEmptyString(c.image.alt)) issues.push({ path: `${p}.image.alt`, message: "Texto alternativo obrigatório." });
     if (c.image.src !== null && !isNonEmptyString(c.image.license)) {
       issues.push({ path: `${p}.image.license`, message: "Imagem sem licença registrada." });

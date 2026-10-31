@@ -61,6 +61,9 @@ export interface CharacterResultContent {
   readonly summary: string;
 }
 
+/** Quanto material da obra sustenta o perfil (transparência editorial). */
+export type ProfileConfidence = "high" | "medium" | "low";
+
 export interface CharacterDefinition extends ProfileDefinition {
   readonly name: string;
   readonly slug: string;
@@ -73,6 +76,8 @@ export interface CharacterDefinition extends ProfileDefinition {
   readonly scores: AxisScores;
   /** Por que estes valores foram atribuídos (auditoria editorial). */
   readonly editorialRationale: string;
+  /** Confiança editorial do perfil (opcional). */
+  readonly confidence?: ProfileConfidence;
   /** Cor temática em hexadecimal (#rrggbb). */
   readonly color: string;
   readonly image: ImageReference;
