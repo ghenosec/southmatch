@@ -23,6 +23,8 @@ export interface AxisBand {
 export interface AxisDefinition {
   readonly id: AxisId;
   readonly name: string;
+  /** Nome curto para gráficos (opcional; padrão: `name`). */
+  readonly shortName?: string;
   /** Rótulo do polo associado ao valor 0. */
   readonly lowPole: string;
   /** Rótulo do polo associado ao valor 100. */

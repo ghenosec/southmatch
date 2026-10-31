@@ -10,7 +10,40 @@ import type {
   AxisScores,
   ProfileDefinition,
   QuestionDefinition,
+  TraitDirection,
 } from "./engine";
+
+/** Textos de explicação de um eixo, por direção do traço (low/center/high). */
+export interface AxisExplanationTexts {
+  /** Traço em comum com um personagem. Pode usar a variável `{name}`. */
+  readonly shared: Readonly<Record<TraitDirection, string>>;
+  /** Ponto forte associado a cada direção. */
+  readonly strength: Readonly<Record<TraitDirection, string>>;
+}
+
+/** Seção do perfil comportamental, composta por um ou mais eixos. */
+export interface ProfileSectionDefinition {
+  readonly id: string;
+  readonly title: string;
+  readonly axisIds: readonly string[];
+}
+
+/** Regra de combinação: o texto aparece quando todas as condições valem. */
+export interface CombinationRule {
+  readonly id: string;
+  readonly when: readonly { readonly axisId: string; readonly direction: "low" | "high" }[];
+  readonly text: string;
+}
+
+export interface ThemeExplanations {
+  readonly axes: Readonly<Record<string, AxisExplanationTexts>>;
+  readonly sections: readonly ProfileSectionDefinition[];
+  readonly contradictions: readonly CombinationRule[];
+  /** Exibido quando nenhuma regra de contradição se aplica. */
+  readonly noContradictions: string;
+  /** Exibido quando o perfil do usuário é muito equilibrado. */
+  readonly balancedProfile: string;
+}
 
 /** Referência de imagem. `src` nulo = usar placeholder gerado. */
 export interface ImageReference {
@@ -89,4 +122,6 @@ export interface ThemeDefinition {
   readonly axes: readonly AxisDefinition[];
   readonly questions: readonly QuestionDefinition[];
   readonly characters: readonly CharacterDefinition[];
+  /** Textos para explicações personalizadas. Opcional: sem eles, só faixas são usadas. */
+  readonly explanations?: ThemeExplanations;
 }

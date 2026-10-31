@@ -148,3 +148,16 @@ Cores do tema ficam em `theme.visual.colors`; tokens globais em `src/app/globals
 - **Estado do quiz:** reducer puro (`quiz-state.ts`), testado sem React.
 - **404 com Cache Components:** a página de personagem começa a ser transmitida antes de `notFound()`,
   o que daria status 200. O `proxy.ts` verifica o slug antes e reescreve para uma rota inexistente (404 real).
+
+## Explicações (Fase 5)
+
+- **Conteúdo** no tema (`ThemeExplanations`, opcional): frases de traço em comum e pontos fortes por eixo e
+  direção, seções do perfil comportamental, regras de combinação (contradições) e avisos.
+  Validado por `validateExplanations` (cobertura de eixos, referências, só a variável `{name}`).
+- **Lógica** genérica em `src/services/quiz/explanations.ts`: escolhe as frases a partir dos dados do motor
+  (`interpretComparison`, `classifyScore`, `findBand`). Sem textos no tema, usa as faixas dos eixos.
+- **Interface:** `ResultApp` carrega os dados; `ResultView` só exibe (servirá também para links compartilhados).
+- **Gráficos** (Recharts, client-only): radar "você × personagem" e barras de diferença por eixo. Cores das
+  séries validadas para daltonismo; o personagem também usa linha tracejada; legenda com texto em cor de
+  texto; tabela com os mesmos dados como alternativa acessível.
+- `AxisDefinition.shortName` (opcional) dá rótulos curtos aos gráficos.

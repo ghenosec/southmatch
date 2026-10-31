@@ -195,9 +195,64 @@ export function validateTheme(theme: ThemeDefinition): ValidationReport {
     }
   });
 
+  if (theme.explanations) issues.push(...validateExplanations(theme).issues);
+
   for (const [key, value] of Object.entries(theme.visual.colors)) {
     if (!HEX_COLOR.test(value)) issues.push({ path: `visual.colors.${key}`, message: "Cor deve ser #rrggbb." });
   }
+  return report(issues);
+}
+
+const DIRECTIONS = ["low", "center", "high"] as const;
+const TEMPLATE_VAR = /\{(\w+)\}/g;
+
+/** Valida os textos de explicação: cobertura de eixos, referências e variáveis. */
+export function validateExplanations(theme: ThemeDefinition): ValidationReport {
+  const issues: ValidationIssue[] = [];
+  const ex = theme.explanations;
+  if (!ex) return report(issues);
+  const axisIds = new Set(theme.axes.map((a) => a.id));
+
+  for (const axis of theme.axes) {
+    const texts = Object.hasOwn(ex.axes, axis.id) ? ex.axes[axis.id] : undefined;
+    if (!texts) {
+      issues.push({ path: `explanations.axes.${axis.id}`, message: "Textos ausentes para o eixo." });
+      continue;
+    }
+    for (const d of DIRECTIONS) {
+      const p = `explanations.axes.${axis.id}`;
+      if (!isNonEmptyString(texts.shared[d])) issues.push({ path: `${p}.shared.${d}`, message: "Texto obrigatório." });
+      if (!isNonEmptyString(texts.strength[d])) issues.push({ path: `${p}.strength.${d}`, message: "Texto obrigatório." });
+      for (const [, v] of texts.shared[d].matchAll(TEMPLATE_VAR)) {
+        if (v !== "name") issues.push({ path: `${p}.shared.${d}`, message: `Variável desconhecida {${v}}.` });
+      }
+    }
+  }
+  for (const key of Object.keys(ex.axes)) {
+    if (!axisIds.has(key)) issues.push({ path: `explanations.axes.${key}`, message: "Eixo não definido no tema." });
+  }
+
+  checkUniqueIds(ex.sections, "explanations.sections", issues);
+  ex.sections.forEach((s, i) => {
+    if (!isNonEmptyString(s.title)) issues.push({ path: `explanations.sections[${i}].title`, message: "Título obrigatório." });
+    if (s.axisIds.length === 0 || !s.axisIds.every((id) => axisIds.has(id))) {
+      issues.push({ path: `explanations.sections[${i}].axisIds`, message: "Eixos inválidos ou ausentes." });
+    }
+  });
+
+  checkUniqueIds(ex.contradictions, "explanations.contradictions", issues);
+  ex.contradictions.forEach((r, i) => {
+    const p = `explanations.contradictions[${i}]`;
+    if (!isNonEmptyString(r.text)) issues.push({ path: `${p}.text`, message: "Texto obrigatório." });
+    if (r.when.length < 2) issues.push({ path: `${p}.when`, message: "Uma combinação precisa de 2+ condições." });
+    for (const c of r.when) {
+      if (!axisIds.has(c.axisId)) issues.push({ path: `${p}.when`, message: `Eixo inexistente "${c.axisId}".` });
+      if (c.direction !== "low" && c.direction !== "high") issues.push({ path: `${p}.when`, message: "Direção inválida." });
+    }
+  });
+
+  if (!isNonEmptyString(ex.noContradictions)) issues.push({ path: "explanations.noContradictions", message: "Texto obrigatório." });
+  if (!isNonEmptyString(ex.balancedProfile)) issues.push({ path: "explanations.balancedProfile", message: "Texto obrigatório." });
   return report(issues);
 }
 

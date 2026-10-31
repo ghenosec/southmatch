@@ -6,6 +6,7 @@ import { getTheme } from "@/themes/registry";
 
 export * from "./quiz-service";
 export * from "./quiz-state";
+export * from "./explanations";
 
 /** Tema exibido no site. Trocar aqui é suficiente para mudar o tema padrão. */
 export const DEFAULT_THEME_ID = "south-park";

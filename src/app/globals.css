@@ -22,6 +22,10 @@
   --color-pine-dark: #1f4a37;
   --color-rock: #8a9bb3;
 
+  /* Séries de gráfico (validadas para daltonismo e contraste em superfície clara). */
+  --color-series-user: #2a7fc1;
+  --color-series-other: #d7263d;
+
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-lilita), var(--font-nunito), ui-sans-serif, sans-serif;
 

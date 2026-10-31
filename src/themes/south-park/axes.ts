@@ -20,6 +20,7 @@ function bandsFor(axisId: string): AxisBand[] {
 export const axes: readonly AxisDefinition[] = [
   {
     id: "sociability",
+    shortName: "Social",
     name: "Sociabilidade",
     lowPole: "Reservado",
     highPole: "Extrovertido",
@@ -29,6 +30,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "empathy",
+    shortName: "Empatia",
     name: "Empatia",
     lowPole: "Individualista",
     highPole: "Empático",
@@ -38,6 +40,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "authority",
+    shortName: "Regras",
     name: "Regras e autoridade",
     lowPole: "Rebelde",
     highPole: "Disciplinado",
@@ -47,6 +50,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "decision",
+    shortName: "Decisão",
     name: "Tomada de decisão",
     lowPole: "Impulsivo",
     highPole: "Analítico",
@@ -56,6 +60,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "conflict",
+    shortName: "Conflito",
     name: "Conflitos",
     lowPole: "Conciliador",
     highPole: "Confrontador",
@@ -65,6 +70,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "ambition",
+    shortName: "Motivação",
     name: "Motivação",
     lowPole: "Desapegado",
     highPole: "Ambicioso",
@@ -74,6 +80,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "humor",
+    shortName: "Humor",
     name: "Humor",
     lowPole: "Sério",
     highPole: "Sarcástico",
@@ -83,6 +90,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "loyalty",
+    shortName: "Lealdade",
     name: "Lealdade",
     lowPole: "Independente",
     highPole: "Leal ao grupo",
@@ -92,6 +100,7 @@ export const axes: readonly AxisDefinition[] = [
   },
   {
     id: "worldview",
+    shortName: "Visão",
     name: "Visão de mundo",
     lowPole: "Idealista",
     highPole: "Pragmático",

@@ -163,3 +163,74 @@ test("nenhuma requisição externa durante o teste", async ({ page }) => {
   await expect(page.getByText("Afirmação 2 de")).toBeVisible();
   expect(external).toEqual([]);
 });
+
+/** Respostas completas e válidas gravadas direto no armazenamento (atalho para testar o resultado). */
+async function seedCompleteAnswers(page: Page) {
+  await page.goto("/quiz");
+  await choose(page, "Concordo");
+  await expect(page.getByText("Afirmação 2 de")).toBeVisible();
+  await page.evaluate((key) => {
+    const stored = JSON.parse(localStorage.getItem(key)!);
+    const prefixes = ["soc", "emp", "aut", "dec", "con", "amb", "hum", "loy", "wor"];
+    const opts = ["strongly-disagree", "disagree", "neutral", "agree", "strongly-agree"];
+    const answers: Record<string, string> = {};
+    prefixes.forEach((p, i) => {
+      for (let n = 1; n <= 5; n++) answers[`${p}-${n}`] = opts[(i * 3 + n * 2) % 5]!;
+    });
+    localStorage.setItem(key, JSON.stringify({ ...stored, answers, index: 44, updatedAt: Date.now() }));
+  }, KEY);
+}
+
+test.describe("página de resultado", () => {
+  test("mostra explicação, perfil comportamental e ranking completo", async ({ page }) => {
+    await seedCompleteAnswers(page);
+    await page.goto("/resultado");
+    const winner = (await heading(page).textContent())!.replace("Você é mais parecido com ", "").replace(/!$/, "");
+    await expect(page.getByRole("heading", { name: `Por que ${winner}?` })).toBeVisible();
+    await expect(page.getByText(/Entre os 20 personagens/)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Seu perfil comportamental" })).toBeVisible();
+    for (const t of ["Seu jeito de lidar com pessoas", "Sua reação a conflitos", "Seus pontos fortes", "Suas contradições"]) {
+      await expect(page.getByRole("heading", { name: t })).toBeVisible();
+    }
+    await page.getByText("Ver o ranking completo (20)").click();
+    await expect(page.getByText("Ver o ranking completo (20)").locator("xpath=../ol/li")).toHaveCount(20);
+  });
+
+  test("compara com outro personagem pelo seletor e pelo botão do top 5", async ({ page }) => {
+    await seedCompleteAnswers(page);
+    await page.goto("/resultado");
+    const panel = page.getByRole("region", { name: "Compare com qualquer personagem" });
+    await panel.getByLabel("Personagem").selectOption({ label: "Butters Stotch" });
+    await expect(panel.getByText(/Afinidade com Butters Stotch/)).toBeVisible();
+    await expect(panel.getByRole("table").getByRole("row")).toHaveCount(10);
+    await expect(panel.getByRole("columnheader", { name: "Butters Stotch" })).toBeVisible();
+
+    const second = page.getByRole("region", { name: /personagens mais compatíveis/ }).getByRole("listitem").nth(1);
+    const name = (await second.getByRole("link").textContent())!;
+    await second.getByRole("button", { name: `Comparar com ${name}` }).click();
+    await expect(panel.getByLabel("Personagem")).toHaveValue(/.+/);
+    await expect(panel.getByText(`Afinidade com ${name}`)).toBeVisible();
+  });
+
+  test("copia um resumo sem as respostas individuais", async ({ page, context, browserName }) => {
+    test.skip(browserName !== "chromium", "permissões de área de transferência");
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await seedCompleteAnswers(page);
+    await page.goto("/resultado");
+    await page.getByRole("button", { name: "Copiar resultado" }).click();
+    await expect(page.getByText("Resumo copiado para a área de transferência.")).toBeVisible();
+    const text = await page.evaluate(() => navigator.clipboard.readText());
+    expect(text).toContain("Meu resultado no SouthMatch:");
+    expect(text).toContain("Sociabilidade:");
+    expect(text).not.toMatch(/soc-1|strongly-agree/);
+  });
+
+  test("refazer limpa as respostas e volta ao teste", async ({ page }) => {
+    await seedCompleteAnswers(page);
+    await page.goto("/resultado");
+    await page.getByRole("button", { name: "Refazer o teste" }).click();
+    await expect(page).toHaveURL(/\/quiz$/);
+    await expect(page.getByText("Afirmação 1 de")).toBeVisible();
+    await expect.poll(() => page.evaluate((k) => localStorage.getItem(k), KEY)).toBeNull();
+  });
+});

@@ -64,6 +64,21 @@ Limiares padrão (`DEFAULT_THRESHOLDS`):
 Explicações são montadas por templates de texto preenchidos com esses dados (sem IA generativa).
 Um teste garante que nenhuma interpretação aponte para o polo contrário ao da pontuação.
 
+### Como cada parte do resultado é escolhida
+
+| Parte | Regra |
+|---|---|
+| Justificativa | Sempre verdadeira: cita a afinidade calculada e os 3 eixos mais próximos do vencedor |
+| "O que vocês têm em comum" | Até 3 eixos com diferença ≤ 12 **e** os dois do mesmo lado; frase do tema para essa direção |
+| "Onde vocês diferem" | Até 3 eixos com diferença ≥ 25; cita o polo do lado do personagem e os dois valores |
+| Perfil comportamental | Texto da faixa (0–20, 21–40, 41–59, 60–79, 80–100) em que cada pontuação está |
+| Pontos fortes | Os 3 eixos mais distantes do centro, com o texto da direção correspondente |
+| Contradições | Regras de combinação do tema (ex.: sociável **e** independente); só aparecem se todas as condições valem |
+| Aviso de perfil equilibrado | Quando no máximo 2 dos 9 eixos fogem do centro (|pontuação − 50| ≥ 10) |
+
+As frases evitam adjetivos com gênero ("empático/empática"): usam verbos ou "Vocês dois".
+`tests/integration/explanations.test.ts` confere cada frase gerada em 3.000 perfis simulados.
+
 ## 6. Limitações conhecidas
 
 - Os perfis dos personagens são **atribuições editoriais**, não medições.

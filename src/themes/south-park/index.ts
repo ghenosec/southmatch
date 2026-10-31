@@ -3,6 +3,7 @@ import { likertPtBr } from "../shared/likert-pt-br";
 import { axes } from "./axes";
 import { characters } from "./characters";
 import { description, id, name, texts, versions, visual } from "./config";
+import { explanations } from "./explanations";
 import { questions } from "./questions";
 
 export const southParkTheme: ThemeDefinition = {
@@ -18,4 +19,5 @@ export const southParkTheme: ThemeDefinition = {
   axes,
   questions,
   characters,
+  explanations,
 };

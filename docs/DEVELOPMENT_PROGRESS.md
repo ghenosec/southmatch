@@ -78,3 +78,21 @@ Lint ✅ · TypeScript ✅ · 191 testes Vitest ✅ · build ✅ · 53 testes Pl
 ### Pendências
 - Fase 5: gráficos (Recharts), comparação detalhada, explicações personalizadas e perfil comportamental.
 - Estimativa de 7–10 minutos ainda não validada com usuários.
+
+## 30/10/2026 — Fase 5: resultados
+
+### Feito
+- Contrato `ThemeExplanations` (opcional) + validação; textos do tema South Park em `explanations.ts`.
+- Gerador genérico de explicações: justificativa, traços em comum, diferenças, 7 seções de perfil
+  comportamental, pontos fortes, contradições por combinação de eixos, aviso de perfil equilibrado
+  (atende a opção 2 do achado de viés para o centro).
+- Página de resultado completa: vencedor, "Por que X?", top 5 com botão de comparar, ranking completo,
+  9 barras bipolares, perfil comportamental, comparação com qualquer personagem (radar, barras de
+  diferença, semelhanças, diferenças e tabela), copiar resumo, refazer, metodologia.
+- `AxisDefinition.shortName` opcional para rótulos de gráficos.
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 207 testes Vitest ✅ · build ✅ · 61 testes Playwright ✅ · inspeção visual desktop e 375 px
+
+### Pendências
+- Fase 6: link compartilhável versionado e imagem do resultado (os botões ainda não existem na página).
