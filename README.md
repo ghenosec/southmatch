@@ -16,8 +16,8 @@ e descubra com qual personagem de South Park você mais se parece.
 | 5. Resultados | ✅ concluída |
 | 6. Compartilhamento | ✅ concluída |
 | 7. Catálogo e conteúdo | ✅ concluída |
-| 8. Calibração e qualidade | ⏳ próxima |
-| 9. Publicação | pendente |
+| 8. Calibração e qualidade | ✅ concluída |
+| 9. Publicação | ⏳ próxima |
 
 Detalhes em [`docs/DEVELOPMENT_PROGRESS.md`](docs/DEVELOPMENT_PROGRESS.md).
 

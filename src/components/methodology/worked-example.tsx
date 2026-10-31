@@ -46,7 +46,7 @@ export function WorkedExample({ theme }: { theme: ThemeDefinition }) {
   return (
     <>
       <h3 className="mt-4 text-lg font-extrabold">Exemplo: eixo {axis.name}</h3>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={`Tabela do cálculo do eixo ${axis.name} (role para os lados se necessário)`}>
         <table className="w-full min-w-[34rem] border-collapse text-sm">
           <caption className="sr-only">Cálculo de exemplo do eixo {axis.name}</caption>
           <thead>

@@ -298,6 +298,28 @@ Isso **não** é corrigido mexendo no algoritmo nem nos valores só para equilib
    resultado "Heidi" com respostas neutras seja apresentado como tal.
 3. Medir a distribuição com respostas reais (teste-piloto) antes de qualquer decisão.
 
+### Respondentes simulados realistas (Fase 8)
+
+`tests/themes/calibration-realistic.test.ts`: cada pessoa simulada tem um traço por eixo e responde de forma
+coerente com ele, com ruído (10.000 pessoas por cenário).
+
+| Cenário | Mais frequentes | Menos frequentes |
+|---|---|---|
+| Coerente, ruído moderado, 10% neutras | Scott 12,8% · Gerald 12,0% · Heidi 11,5% | Butters 0,5% · Cartman 0,4% |
+| + viés de concordar com tudo | Scott 13,9% · Gerald 13,4% · Heidi 12,6% | Cartman 0,4% · Butters 0,1% |
+| 60% de respostas neutras | Heidi 42,6% · Scott 12,6% · Stan 10,4% | Cartman e Butters ≈ 0% |
+
+Conclusões:
+
+- Todos os personagens aparecem com respondentes coerentes; nenhum passa de 20%.
+- O viés de concordância muda pouco a distribuição (≤ 2,5 pontos percentuais por personagem), porque as
+  polaridades estão equilibradas.
+- O viés para o centro se confirma: Scott, Gerald e Heidi (dois deles de baixa confiança) somam ~36% dos
+  resultados de respondentes coerentes. **Recomendação editorial:** revisar os perfis de Scott e Heidi com
+  evidências da série antes da publicação. O resultado já avisa quando o perfil do usuário é muito equilibrado.
+
+Rodar todos os relatórios: `npm run calibrate`.
+
 ## Como versionar
 
 Qualquer mudança em valores ou textos de personagens exige incrementar `versions.profiles` em

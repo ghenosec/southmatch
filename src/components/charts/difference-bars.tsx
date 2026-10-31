@@ -17,7 +17,7 @@ export function DifferenceBars({ data }: { data: readonly DifferenceRow[] }) {
   return (
     <div aria-hidden className="w-full" style={{ height: sorted.length * 34 + 30 }}>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={sorted} layout="vertical" margin={{ top: 4, right: 36, bottom: 4, left: 4 }} barCategoryGap={6}>
+        <BarChart accessibilityLayer={false} data={sorted} layout="vertical" margin={{ top: 4, right: 36, bottom: 4, left: 4 }} barCategoryGap={6}>
           <CartesianGrid horizontal={false} stroke="var(--color-line)" />
           <XAxis type="number" domain={[0, 100]} ticks={[0, 25, 50, 75, 100]} tick={{ fill: "var(--color-muted)", fontSize: 11 }} />
           <YAxis

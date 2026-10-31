@@ -123,3 +123,16 @@ test("privacidade: apaga os dados do site neste navegador", async ({ page }) => 
   await page.getByRole("button", { name: "Apagar meus dados deste navegador" }).click();
   await expect(page.getByText("Não havia dados do SouthMatch salvos neste navegador.")).toBeVisible();
 });
+
+test("respeita movimento reduzido: a neve da landing não anima", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const animated = await page.evaluate(
+    () =>
+      [...document.querySelectorAll<HTMLElement>(".animate-snow")].filter((el) => {
+        const s = getComputedStyle(el);
+        return s.display !== "none" && s.animationName !== "none" && parseFloat(s.animationDuration) > 0.01;
+      }).length,
+  );
+  expect(animated).toBe(0);
+});

@@ -25,7 +25,7 @@ export function ComparisonRadar({ data, characterName }: { data: readonly RadarR
   return (
     <div aria-hidden className="h-[320px] w-full sm:h-[380px]">
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart data={[...data]} outerRadius="72%" margin={{ top: 8, right: 24, bottom: 8, left: 24 }}>
+        <RadarChart accessibilityLayer={false} data={[...data]} outerRadius="72%" margin={{ top: 8, right: 24, bottom: 8, left: 24 }}>
           <PolarGrid stroke="var(--color-line)" />
           <PolarAngleAxis dataKey="axis" tick={{ fill: "var(--color-ink)", fontSize: 12, fontWeight: 700 }} />
           <PolarRadiusAxis domain={[0, 100]} tickCount={3} tick={false} axisLine={false} />

@@ -3,8 +3,7 @@
 import { round, type AxisScores, type ThemeDefinition } from "@/core";
 import { compareWithCharacter } from "@/services/quiz";
 import { CharacterAvatar } from "@/components/characters/character-avatar";
-import { ComparisonRadar } from "@/components/charts/comparison-radar";
-import { DifferenceBars } from "@/components/charts/difference-bars";
+import { LazyComparisonRadar, LazyDifferenceBars, WhenVisible } from "@/components/charts/lazy-charts";
 
 /** Comparação detalhada entre o usuário e um personagem escolhido. */
 export function ComparisonPanel({
@@ -55,14 +54,18 @@ export function ComparisonPanel({
       <div className="mt-6 grid gap-8 lg:grid-cols-2">
         <figure>
           <figcaption className="mb-2 font-extrabold">Os perfis lado a lado</figcaption>
-          <ComparisonRadar
-            characterName={character.name}
-            data={cmp.rows.map((r) => ({ axis: short(r.axisId), user: r.user, character: r.character }))}
-          />
+          <WhenVisible height={340}>
+            <LazyComparisonRadar
+              characterName={character.name}
+              data={cmp.rows.map((r) => ({ axis: short(r.axisId), user: r.user, character: r.character }))}
+            />
+          </WhenVisible>
         </figure>
         <figure>
           <figcaption className="mb-2 font-extrabold">Onde vocês mais diferem (pontos de diferença)</figcaption>
-          <DifferenceBars data={cmp.rows.map((r) => ({ axis: short(r.axisId), gap: Math.abs(r.difference) }))} />
+          <WhenVisible height={330}>
+            <LazyDifferenceBars data={cmp.rows.map((r) => ({ axis: short(r.axisId), gap: Math.abs(r.difference) }))} />
+          </WhenVisible>
         </figure>
       </div>
 
@@ -93,7 +96,7 @@ export function ComparisonPanel({
         </div>
       </div>
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 overflow-x-auto" tabIndex={0} role="region" aria-label="Tabela de pontuação por eixo (role para os lados se necessário)">
         <table className="w-full min-w-[22rem] border-collapse text-sm">
           <caption className="mb-2 text-left font-extrabold">Pontuação por eixo (0 a 100)</caption>
           <thead>

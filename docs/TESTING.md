@@ -9,6 +9,8 @@ npm test               # Vitest (core, themes, integration)
 npm run test:coverage  # Vitest com cobertura (relatório em coverage/)
 npm run test:e2e       # Playwright (faz build de produção e sobe na porta 3100)
 npm run check          # lint + typecheck + test + build
+npm run calibrate      # relatórios de calibração
+npm run measure        # peso das páginas (com o servidor de produção na porta 3200)
 ```
 
 Primeira execução do Playwright: `npx playwright install chromium`.
@@ -31,6 +33,8 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 | `tests/integration/result-image.test.ts` | conteúdo da imagem: vencedor, afinidade, características predominantes, eixos, endereço |
 | `tests/e2e/sharing.spec.ts` | link aberto em outro contexto sem dados locais, copiar link, troca só do fragmento, 5 links inválidos sem executar conteúdo, PNG 1080×1350 baixado sem requisições externas |
 | `tests/integration/characters.test.ts` | confiança dos perfis, personagens parecidos pela distância do motor, destaques, navegação circular |
+| `tests/themes/calibration-realistic.test.ts` | respondentes simulados coerentes com ruído, viés de concordância e excesso de neutras |
+| `tests/e2e/a11y.spec.ts` | auditoria axe-core WCAG A/AA em todas as rotas, quiz e resultado |
 | `tests/e2e/quiz.spec.ts` | iniciar, teclado e nomes acessíveis, avanço automático, voltar/alterar, retomar, reiniciar, progresso corrompido, 45 respostas até o resultado, ausência de requisições externas; resultado: explicação, perfil comportamental, ranking completo, comparação pelo seletor e pelo top 5, copiar resumo, refazer |
 | `tests/e2e/pages.spec.ts` | todas as páginas carregam sem rolagem horizontal (também a 360 px), elementos da landing, catálogo com busca e ordenação, página de personagem (parecidos, confiança, navegação, sem adjetivos no masculino para personagens femininas), exemplo numérico da metodologia, apagar dados na privacidade, 404 real, link de pular conteúdo |
 | `tests/themes/south-park.test.ts` | 45 perguntas, 5 por eixo, 9 eixos, 20 personagens, IDs únicos, polaridades 23/22, múltiplos de 5, textos, licença de imagens |
@@ -39,20 +43,18 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 Cenários aleatórios usam um gerador com semente fixa (`seededRandom` em `tests/fixtures.ts`)
 para serem reprodutíveis.
 
-## Último resultado (Fase 7, 30/10/2026)
+## Último resultado (Fase 8, 30/10/2026)
 
 | Verificação | Resultado |
 |---|---|
 | Lint | ✅ sem erros |
 | TypeScript | ✅ sem erros |
-| Vitest | ✅ 15 arquivos, 241 testes |
+| Vitest | ✅ 16 arquivos, 244 testes |
 | Build de produção | ✅ todas as rotas estáticas |
-| Playwright | ✅ 94 testes (desktop, mobile 412 px, mobile 360 px) |
-
-Relatório de calibração: `npx vitest run tests/themes/calibration.test.ts --silent=false`
-(resultados em `docs/CHARACTER_PROFILES.md`).
+| Playwright | ✅ 115 testes (desktop, mobile 412 px, mobile 360 px), incluindo axe sem violações |
+| `npm audit --omit=dev` | ✅ 0 vulnerabilidades |
 
 ## Pendente
 
-- Auditoria automatizada de acessibilidade (ex.: axe) — Fase 8.
 - Calibração com respostas reais (teste-piloto) e correlação entre eixos — Fase 8.
+- Teste com leitor de tela real (NVDA/VoiceOver) e com usuários: a auditoria automática não cobre tudo.

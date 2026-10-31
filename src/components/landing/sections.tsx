@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/container";
 function SectionTitle({ id, children, kicker }: { id: string; children: string; kicker?: string }) {
   return (
     <div className="mb-8 text-center">
-      {kicker && <p className="mb-2 text-sm font-extrabold tracking-widest text-action uppercase">{kicker}</p>}
+      {kicker && <p className="mb-2 text-sm font-extrabold tracking-widest text-action-dark uppercase">{kicker}</p>}
       <h2 id={id} className="font-display text-3xl text-ink sm:text-4xl">
         {children}
       </h2>

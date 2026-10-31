@@ -204,6 +204,9 @@ test.describe("página de resultado", () => {
     await expect(panel.getByText(/Afinidade com Butters Stotch/)).toBeVisible();
     await expect(panel.getByRole("table").getByRole("row")).toHaveCount(10);
     await expect(panel.getByRole("columnheader", { name: "Butters Stotch" })).toBeVisible();
+    // Os gráficos são carregados sob demanda quando o painel entra na tela.
+    await panel.scrollIntoViewIfNeeded();
+    await expect(panel.locator(".recharts-wrapper")).toHaveCount(2);
 
     const second = page.getByRole("region", { name: /personagens mais compatíveis/ }).getByRole("listitem").nth(1);
     const name = (await second.getByRole("link").textContent())!;

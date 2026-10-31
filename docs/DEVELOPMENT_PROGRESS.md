@@ -139,3 +139,26 @@ Lint ✅ · TypeScript ✅ · 241 testes Vitest ✅ · build ✅ · 94 testes Pl
 ### Pendência editorial
 - No resultado do usuário, rótulos e polos usam o masculino genérico ("Muito reservado", "Extrovertido").
   Alternativas: reescrever em forma neutra ou oferecer escolha de forma de tratamento.
+
+## 30/10/2026 — Fase 8: calibração e qualidade
+
+### Feito
+- Auditoria automática de acessibilidade (axe-core, WCAG A/AA) em todas as rotas, quiz e resultado.
+- Calibração com respondentes simulados realistas (coerentes com ruído, viés de concordância, excesso de neutras).
+- Gráficos carregados sob demanda: JS inicial do resultado de 286 KB para 176 KB (comprimido).
+- Script de medição de peso das páginas e scripts `npm run calibrate` / `npm run measure`.
+- Teste de movimento reduzido; verificação de que os gráficos aparecem ao rolar.
+
+### Problemas encontrados e corrigidos
+- Contraste insuficiente dos subtítulos vermelhos sobre fundo azul-claro (WCAG 1.4.3).
+- Gráficos ocultos para leitores de tela, mas focáveis pelo teclado (WCAG 4.1.2).
+- Tabelas com rolagem horizontal inacessíveis pelo teclado no celular (WCAG 2.1.1).
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 244 testes Vitest ✅ · build ✅ · 115 testes Playwright ✅ · npm audit (produção) 0 vulnerabilidades
+
+### Pendências
+- Revisão editorial dos perfis de Scott e Heidi (viés para o centro confirmado com respondentes realistas).
+- Rótulos de faixa no masculino genérico no resultado do usuário (decisão editorial).
+- Teste com leitor de tela real e com usuários (duração, clareza das afirmações).
+- 16 alertas moderados apenas em dependências de desenvolvimento (ESLint).

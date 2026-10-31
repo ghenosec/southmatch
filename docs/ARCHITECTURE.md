@@ -207,3 +207,21 @@ Cores do tema ficam em `theme.visual.colors`; tokens globais em `src/app/globals
 - **Gênero gramatical:** os rótulos de faixa ("Muito empático") são adjetivos no masculino. Nas páginas de
   personagem eles foram trocados por "Eixo: valor" (`AxisBar showBandLabel={false}`) para não descrever
   personagens femininas no masculino. Para o usuário, o masculino genérico continua — decisão editorial pendente.
+
+## Qualidade (Fase 8)
+
+- **Acessibilidade:** `tests/e2e/a11y.spec.ts` roda axe-core (WCAG 2.0/2.1/2.2 A e AA) em todas as rotas, no quiz
+  e no resultado, em desktop e celular. Correções feitas: contraste dos subtítulos de seção, gráficos sem foco
+  oculto (`accessibilityLayer={false}`, a tabela é a alternativa), tabelas roláveis focáveis pelo teclado.
+- **Desempenho:** gráficos (Recharts) carregados sob demanda quando a comparação se aproxima da tela
+  (`src/components/charts/lazy-charts.tsx`). `scripts/measure-pages.mjs` mede o peso de cada página.
+
+| Página | JS inicial (comprimido) |
+|---|---|
+| `/`, `/quiz`, catálogo, personagem, metodologia | 157–164 KB |
+| `/resultado` | 176 KB (antes: 286 KB) |
+
+O piso de ~157 KB é o runtime do React 19 + Next.js 16.
+- **Dependências:** `npm audit --omit=dev` sem vulnerabilidades. Há 16 alertas moderados só em ferramentas de
+  desenvolvimento (`minimatch` via plugins do ESLint), que não vão para o site; não foi aplicado
+  `npm audit fix --force` por exigir mudanças incompatíveis.
