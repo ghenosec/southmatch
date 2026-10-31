@@ -49,6 +49,11 @@ next-env.d.ts
 
 # configuração local do Claude Code
 /.claude/
+<<<<<<< HEAD
 
 /docs/
 
+=======
+AGENTS.md
+/docs/
+>>>>>>> 0393f443df9c446f401201dee0f2cc04886b6d7c
