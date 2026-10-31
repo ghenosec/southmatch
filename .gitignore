@@ -49,3 +49,6 @@ next-env.d.ts
 
 # configuração local do Claude Code
 /.claude/
+
+/docs/
+
