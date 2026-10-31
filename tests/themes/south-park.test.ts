@@ -96,9 +96,9 @@ describe("tema South Park — integridade dos dados", () => {
     }
   });
 
-  it("nenhum personagem usa imagem sem licença (só placeholders por enquanto)", () => {
+  it("imagens de personagens apontam para a pasta do tema", () => {
     for (const c of theme.characters) {
-      expect(c.image.src === null || c.image.license !== null).toBe(true);
+      if (c.image.src) expect(c.image.src).toMatch(/^\/themes\/south-park\/normalized\/[a-z0-9-]+\.webp$/);
     }
   });
 

@@ -44,7 +44,7 @@ export function buildImageContent(theme: ThemeDefinition, result: QuizResult, si
     winnerName: winner.name,
     winnerColor: winner.color,
     initials: initialsOf(winner.name),
-    imageSrc: winner.image.src && winner.image.license ? winner.image.src : null,
+    imageSrc: winner.image.src,
     affinity: round(result.winner.affinity),
     traits: traits.length > 0 ? traits : ["Perfil equilibrado"],
     axes: theme.axes.map((a) => {

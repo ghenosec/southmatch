@@ -90,7 +90,7 @@ export const exampleTheme: ThemeDefinition = {
       scores: { energy: 30, order: 90, warmth: 20 },
       editorialRationale: "Perfil sintético de teste.",
       color: "#64748b",
-      image: { src: null, alt: "Placeholder do Robô Ranzinza", license: null },
+      image: { src: null, alt: "Placeholder do Robô Ranzinza", credit: null },
       result: { headline: "Você é o Robô Ranzinza!", summary: "Ordem acima de tudo." },
     },
     {
@@ -106,7 +106,7 @@ export const exampleTheme: ThemeDefinition = {
       scores: { energy: 90, order: 15, warmth: 55 },
       editorialRationale: "Perfil sintético de teste.",
       color: "#f97316",
-      image: { src: null, alt: "Placeholder da Gata Exploradora", license: null },
+      image: { src: null, alt: "Placeholder da Gata Exploradora", credit: null },
       result: { headline: "Você é a Gata Exploradora!", summary: "O plano é não ter plano." },
     },
     {
@@ -122,7 +122,7 @@ export const exampleTheme: ThemeDefinition = {
       scores: { energy: 20, order: 60, warmth: 90 },
       editorialRationale: "Perfil sintético de teste.",
       color: "#8b5cf6",
-      image: { src: null, alt: "Placeholder da Coruja Bibliotecária", license: null },
+      image: { src: null, alt: "Placeholder da Coruja Bibliotecária", credit: null },
       result: { headline: "Você é a Coruja Bibliotecária!", summary: "Calma e cuidado." },
     },
   ],

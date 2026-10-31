@@ -35,7 +35,7 @@ async function imageDataUrl(src: string | null): Promise<string | null> {
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const c = getActiveTheme().characters.find((x) => x.slug === slug);
-  const picture = c?.image.license ? await imageDataUrl(c.image.src) : null;
+  const picture = c ? await imageDataUrl(c.image.src) : null;
   return new ImageResponse(
     (
       <OgCard

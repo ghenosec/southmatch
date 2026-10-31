@@ -49,8 +49,8 @@ export interface ThemeExplanations {
 export interface ImageReference {
   readonly src: string | null;
   readonly alt: string;
-  /** Origem/licença do recurso. Obrigatório quando `src` existir. */
-  readonly license: string | null;
+  /** Crédito opcional da ilustração (ex.: artista da fan-art). */
+  readonly credit: string | null;
 }
 
 /** Conteúdo exibido na página de resultado para um personagem. */

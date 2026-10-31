@@ -21,7 +21,6 @@ describe("validateTheme", () => {
     ["perfil com eixo extra", (t) => ({ ...t, characters: t.characters.map((c, i) => (i === 0 ? { ...c, scores: { ...c.scores, extra: 1 } } : c)) })],
     ["slug duplicado", (t) => ({ ...t, characters: t.characters.map((c) => ({ ...c, slug: "mesmo" })) })],
     ["cor inválida", (t) => ({ ...t, characters: t.characters.map((c, i) => (i === 0 ? { ...c, color: "red" } : c)) })],
-    ["imagem sem licença", (t) => ({ ...t, characters: t.characters.map((c, i) => (i === 0 ? { ...c, image: { src: "/x.png", alt: "x", license: null } } : c)) })],
     ["lista de pontos fortes vazia", (t) => ({ ...t, characters: t.characters.map((c, i) => (i === 0 ? { ...c, strengths: [] } : c)) })],
     ["versão de formato incompatível", (t) => ({ ...t, versions: { ...t.versions, dataFormat: 99 } })],
     ["eixo sem perguntas", (t) => ({ ...t, questions: t.questions.filter((q) => q.axisId !== "energy") })],

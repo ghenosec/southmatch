@@ -4,8 +4,8 @@ import { initialsOf } from "@/lib/initials";
 /**
  * Avatar do personagem.
  *
- * - Com `image.src` (ilustração licenciada, com `image.license` preenchida —
- *   a validação do tema exige): mostra a imagem de public/themes/<tema>/.
+ * - Com `image.src`: mostra a imagem do personagem (normalizada por
+ *   `npm run images:sync` para ter tamanho e alinhamento iguais).
  * - Sem imagem: "boneco de papel" genérico e original na cor do personagem,
  *   com as iniciais. Não reproduz o visual de nenhum personagem.
  */
@@ -20,7 +20,7 @@ export function CharacterAvatar({
 }) {
   const initials = initialsOf(character.name);
 
-  if (character.image.src && character.image.license) {
+  if (character.image.src) {
     return (
       // eslint-disable-next-line @next/next/no-img-element -- arquivos locais pequenos; evita otimização sob demanda
       <img
@@ -30,8 +30,15 @@ export function CharacterAvatar({
         height={size}
         loading="lazy"
         decoding="async"
-        className="shrink-0 rounded-full border-[3px] border-ink bg-snow object-contain"
-        style={{ width: size, height: size }}
+        className="shrink-0 border-ink bg-gradient-to-b from-sky-pale to-snow object-contain"
+        style={{
+          width: size,
+          height: size,
+          // Moldura proporcional ao tamanho (fina nos avatares pequenos).
+          borderWidth: size >= 80 ? 3 : 2,
+          borderRadius: Math.round(size * 0.18),
+          padding: Math.round(size * 0.04),
+        }}
       />
     );
   }

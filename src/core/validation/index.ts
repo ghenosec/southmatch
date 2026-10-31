@@ -190,9 +190,6 @@ export function validateTheme(theme: ThemeDefinition): ValidationReport {
       issues.push({ path: `${p}.confidence`, message: "Confiança deve ser high, medium ou low." });
     }
     if (!isNonEmptyString(c.image.alt)) issues.push({ path: `${p}.image.alt`, message: "Texto alternativo obrigatório." });
-    if (c.image.src !== null && !isNonEmptyString(c.image.license)) {
-      issues.push({ path: `${p}.image.license`, message: "Imagem sem licença registrada." });
-    }
     if (!isNonEmptyString(c.result.headline) || !isNonEmptyString(c.result.summary)) {
       issues.push({ path: `${p}.result`, message: "Conteúdo de resultado obrigatório." });
     }

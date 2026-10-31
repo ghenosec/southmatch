@@ -53,7 +53,8 @@ Pela linha de comando (alternativa): `npx vercel` (pré-visualização) e `npx v
 - [ ] Consulta jurídica sobre o uso do nome **SouthMatch** e da marca **South Park**
 - [ ] Busca de anterioridade de marca no INPI (Brasil) e, se houver público internacional, USPTO/EUIPO
 - [ ] Confirmar que o projeto continua sem fins comerciais (sem anúncios, doações vinculadas ou venda)
-- [ ] Imagens dos personagens: licença/autorização obtida pelo responsável e registrada via `npm run images:sync`
+- [x] Imagens dos personagens (fan-arts) padronizadas via `npm run images:sync`
+- [ ] Se possível, creditar os artistas das fan-arts (`--credit`)
 - [x] Aviso de projeto independente de fãs em todas as páginas (rodapé) e na página Sobre
 - [x] Personagens descritos com texto próprio; perguntas não citam a série
 
@@ -89,13 +90,14 @@ do projeto) e manter "South Park" apenas como descrição do tema.
 
 ## 5.1 Imagens dos personagens
 
-As imagens são fornecidas pelo responsável do projeto, que responde pelas licenças e autorizações. O código
-não baixa nem gera imagens de personagens.
+As imagens são fan-arts fornecidas pelo responsável do projeto.
 
 1. Copie um arquivo por personagem para `public/themes/south-park/`, com o nome `<slug>.png`
-   (aceita também `.webp`, `.jpg`, `.jpeg`, `.svg`). Recomendado: quadrado, 512×512, fundo transparente.
-2. Registre a origem e a licença: `npm run images:sync -- --license "origem e termos da licença"`.
-   Isso gera `src/themes/south-park/images.generated.ts`.
+   (aceita também `.webp`, `.jpg`, `.jpeg`). Fundo transparente funciona melhor.
+2. Rode `npm run images:sync`. O script recorta as margens vazias e gera versões padronizadas em
+   `public/themes/south-park/normalized/<slug>.webp`: quadro de 512×512, mesma altura máxima, centralizadas
+   e alinhadas pela base. Os originais não são alterados.
+   Crédito opcional dos artistas: `npm run images:sync -- --credit "Arte de Fulano"`.
 3. Confira: `npm run images:check` e `npm run check`.
 
 | Personagem | Arquivo |
