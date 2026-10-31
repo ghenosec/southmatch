@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Check, Copy, GitCompare, Info, RotateCcw } from "lucide-react";
+import { BookOpen, Check, Copy, GitCompare, Info, Link2, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { round, type QuizResult, type ThemeDefinition } from "@/core";
 import { buildExplanation, resultSummaryText } from "@/services/quiz";
@@ -9,6 +9,7 @@ import { CharacterAvatar } from "@/components/characters/character-avatar";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { AxisBar } from "./axis-bar";
 import { ComparisonPanel } from "./comparison-panel";
+import { SharePanel } from "./share-panel";
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
@@ -21,15 +22,20 @@ function Section({ id, title, children }: { id: string; title: string; children:
   );
 }
 
-/** Exibe um resultado já calculado (local ou, na Fase 6, compartilhado). */
+/**
+ * Exibe um resultado já calculado.
+ * `shared`: resultado aberto por link (de outra pessoa ou do próprio usuário).
+ */
 export function ResultView({
   theme,
   result,
   onRestart,
+  shared = false,
 }: {
   theme: ThemeDefinition;
   result: QuizResult;
-  onRestart: () => void;
+  onRestart?: () => void;
+  shared?: boolean;
 }) {
   const byId = new Map(theme.characters.map((c) => [c.id, c]));
   const winner = byId.get(result.winner.profileId)!;
@@ -55,6 +61,15 @@ export function ResultView({
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8">
+      {shared && (
+        <aside role="note" className="flex flex-col items-start gap-3 rounded-2xl border-[3px] border-ink bg-sun/40 p-4 sm:flex-row sm:items-center">
+          <Link2 aria-hidden className="size-6 shrink-0" />
+          <p className="flex-1 leading-relaxed">
+            <strong>Resultado compartilhado.</strong> Aqui, “você” é quem fez o teste e enviou o link.
+          </p>
+          <ButtonLink href="/quiz">Fazer o meu teste</ButtonLink>
+        </aside>
+      )}
       {/* Resultado principal */}
       <section aria-labelledby="vencedor" className="paper flex flex-col items-center gap-4 p-6 text-center sm:p-10">
         <CharacterAvatar character={winner} size={140} />
@@ -210,6 +225,8 @@ export function ResultView({
 
       <ComparisonPanel theme={theme} userScores={result.user.scores} selectedId={compareId} onSelect={setCompareId} />
 
+      {!shared && <SharePanel theme={theme} result={result} />}
+
       {/* Ações */}
       <section aria-label="Ações" className="flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row">
         <Button onClick={copy}>
@@ -219,9 +236,15 @@ export function ResultView({
         <Button variant="secondary" onClick={() => compare(compareId)}>
           <GitCompare aria-hidden className="size-5" /> Comparar personagens
         </Button>
-        <Button variant="secondary" onClick={onRestart}>
-          <RotateCcw aria-hidden className="size-5" /> Refazer o teste
-        </Button>
+        {onRestart && !shared ? (
+          <Button variant="secondary" onClick={onRestart}>
+            <RotateCcw aria-hidden className="size-5" /> Refazer o teste
+          </Button>
+        ) : (
+          <ButtonLink href="/quiz" variant="secondary">
+            <RotateCcw aria-hidden className="size-5" /> Fazer o teste
+          </ButtonLink>
+        )}
         <ButtonLink href="/metodologia" variant="ghost">
           <BookOpen aria-hidden className="size-5" /> Ver metodologia
         </ButtonLink>

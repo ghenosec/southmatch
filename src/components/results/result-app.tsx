@@ -1,19 +1,58 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { use, useState } from "react";
+import { use, useState, useSyncExternalStore } from "react";
 import { browser } from "react-dom";
+import { readShareFragment } from "@/lib/sharing/share-link";
 import { browserStore, clearProgress, loadProgress } from "@/lib/storage/quiz-progress";
-import { answeredCount, computeThemeResult, getActiveTheme, isComplete } from "@/services/quiz";
+import {
+  answeredCount,
+  computeThemeResult,
+  getActiveTheme,
+  isComplete,
+  resolveSharedResult,
+  SHARED_ERROR_MESSAGES,
+} from "@/services/quiz";
 import { ButtonLink } from "@/components/ui/button";
 import { ResultView } from "./result-view";
 
+function subscribeHash(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  return () => window.removeEventListener("hashchange", onChange);
+}
+
 /**
- * Carrega as respostas salvas neste dispositivo, calcula o resultado
- * e entrega para a ResultView. Só roda no navegador (localStorage).
+ * Decide o que mostrar em /resultado:
+ * - `#r=…` no endereço → resultado compartilhado (validado e versionado);
+ * - senão → resultado das respostas salvas neste dispositivo.
+ * Só roda no navegador (fragmento da URL e localStorage).
  */
 export function ResultApp() {
-  use(browser("O resultado é calculado com as respostas salvas no localStorage."));
+  use(browser("O resultado vem do fragmento da URL ou do localStorage."));
+  // Reage também quando só o fragmento muda (a página não recarrega nesse caso).
+  const hash = useSyncExternalStore(subscribeHash, () => location.hash, () => "");
+  const shareCode = readShareFragment(hash);
+  if (shareCode !== null) return <SharedResult key={shareCode} code={shareCode} />;
+  return <LocalResult />;
+}
+
+function SharedResult({ code }: { code: string }) {
+  const [outcome] = useState(() => resolveSharedResult(code));
+  if (!outcome.ok) {
+    return (
+      <section className="paper mx-auto max-w-xl p-8 text-center">
+        <h1 className="font-display text-3xl">Não foi possível abrir este resultado</h1>
+        <p className="mt-3 text-ink-soft">{SHARED_ERROR_MESSAGES[outcome.error]}</p>
+        <ButtonLink href="/quiz" className="mt-6">
+          Fazer o teste
+        </ButtonLink>
+      </section>
+    );
+  }
+  return <ResultView theme={outcome.theme} result={outcome.result} shared />;
+}
+
+function LocalResult() {
   const theme = getActiveTheme();
   const router = useRouter();
   const [saved] = useState(() => loadProgress(browserStore(), theme, Date.now()));

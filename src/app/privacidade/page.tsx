@@ -36,9 +36,15 @@ export default function PrivacyPage() {
 
       <h2>Compartilhamento</h2>
       <p>
-        Nada é compartilhado automaticamente. Quando o recurso de compartilhamento estiver disponível, o link gerado
-        conterá um resumo do seu perfil (as pontuações dos eixos, não as respostas individuais), e qualquer pessoa com o
-        link poderá vê-lo.
+        Nada é compartilhado automaticamente. Se você escolher compartilhar, o link gerado contém o seu personagem e as
+        pontuações dos eixos — não as respostas individuais. Esses dados ficam no próprio endereço, depois do símbolo{" "}
+        <code>#</code>, uma parte que os navegadores não enviam aos servidores. Qualquer pessoa com o link poderá ver
+        essas informações, e serviços por onde você enviar o link (aplicativos de mensagem, redes sociais) podem
+        armazená-lo.
+      </p>
+      <p>
+        A imagem do resultado é gerada no seu próprio navegador e baixada diretamente no seu dispositivo, sem passar
+        por servidores.
       </p>
 
       <h2>Mudanças</h2>

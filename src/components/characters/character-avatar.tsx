@@ -1,4 +1,5 @@
 import type { CharacterDefinition } from "@/core/types";
+import { initialsOf } from "@/lib/initials";
 
 /**
  * Avatar provisório e original: um "boneco de papel" genérico na cor do
@@ -14,13 +15,7 @@ export function CharacterAvatar({
   size?: number;
   decorative?: boolean;
 }) {
-  const initials = character.name
-    .replace(/^(Mr\.|PC)\s+/, (m) => m.trim().charAt(0) + " ")
-    .split(/\s+/)
-    .map((w) => w.charAt(0))
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
+  const initials = initialsOf(character.name);
 
   return (
     <svg

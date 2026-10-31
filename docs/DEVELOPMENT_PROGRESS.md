@@ -96,3 +96,25 @@ Lint ✅ · TypeScript ✅ · 207 testes Vitest ✅ · build ✅ · 61 testes Pl
 
 ### Pendências
 - Fase 6: link compartilhável versionado e imagem do resultado (os botões ainda não existem na página).
+
+## 30/10/2026 — Fase 6: compartilhamento
+
+### Feito
+- Formato de link versionado e compacto no fragmento da URL, com verificação de integridade.
+- Reconstrução pelo motor (`resultFromScores`) com recusa explícita de versões antigas de algoritmo ou perfis.
+- Painel "Compartilhar" com aviso de privacidade, link, botão nativo de compartilhar (quando disponível),
+  copiar link e baixar imagem.
+- Modo "resultado compartilhado" na página de resultado (aviso, convite para fazer o teste).
+- Imagem PNG 1080×1350 gerada localmente com Canvas.
+- Política de privacidade atualizada para o compartilhamento real.
+
+### Problema encontrado e corrigido
+- Colar um link com `#r=` numa aba já aberta em `/resultado` não atualizava a página (fragmento não recarrega).
+  Agora a página reage a `hashchange`; coberto por teste E2E.
+
+### Verificado
+Lint ✅ · TypeScript ✅ · 233 testes Vitest ✅ · build ✅ · 79 testes Playwright ✅ · inspeção visual da imagem e do link
+
+### Decisão pendente
+- Pré-visualização personalizada em redes sociais exigiria processamento no servidor. Não implementado;
+  links mostram a pré-visualização genérica do site (a definir na Fase 9, junto com Open Graph).

@@ -161,3 +161,35 @@ Cores do tema ficam em `theme.visual.colors`; tokens globais em `src/app/globals
   séries validadas para daltonismo; o personagem também usa linha tracejada; legenda com texto em cor de
   texto; tabela com os mesmos dados como alternativa acessível.
 - `AxisDefinition.shortName` (opcional) dá rótulos curtos aos gráficos.
+
+## Compartilhamento e imagem (Fase 6)
+
+**Formato do link** (`src/lib/sharing/share-link.ts`), no fragmento da URL:
+
+```text
+/resultado#r=<formato>~<tema>~<algoritmo>~<perfis>~<pontuações>~<verificação>
+/resultado#r=1~south-park~1~2026.10.0~0k1e0k0k28141o1o14~19e77et
+```
+
+| Campo | Conteúdo |
+|---|---|
+| formato | `SHARE_FORMAT_VERSION` (1) |
+| tema | ID do tema |
+| algoritmo | `ALGORITHM_VERSION` no momento do cálculo |
+| perfis | `theme.versions.profiles` no momento do cálculo |
+| pontuações | um inteiro 0–100 por eixo, 2 caracteres base 36, na ordem dos eixos |
+| verificação | FNV-1a dos campos anteriores (detecta links truncados ou editados; não é assinatura) |
+
+- **Sem recálculo silencioso:** `resolveSharedResult` recusa links com algoritmo ou versão de perfis diferentes
+  e mostra o motivo. O ranking é reconstruído com `resultFromScores` (motor) e é idêntico ao original
+  (testado com 200 perfis).
+- **Privacidade:** o fragmento não é enviado ao servidor. Sem respostas individuais nem dados pessoais.
+- **Segurança:** tamanho máximo, regex por campo, valores 0–100; nada do link vira HTML.
+- **Pré-visualização em redes sociais:** robôs não leem o fragmento, então links compartilhados mostram a
+  pré-visualização genérica do site. Pré-visualização personalizada exigiria um serviço de geração de imagem
+  no servidor (ex.: rota `opengraph-image` com os dados na query string), o que expõe as pontuações ao servidor
+  e a logs. Não foi implementado; fica como proposta para decisão.
+- **Imagem** (`src/lib/export/result-image.ts`): PNG 1080×1350 desenhado com Canvas 2D no navegador, com as
+  cores e fontes da página. Conteúdo montado por `buildImageContent` (puro, testado).
+- **Interface:** `ResultApp` decide entre resultado compartilhado (fragmento, reage a `hashchange`) e local.
+  `ResultView` em modo `shared` mostra aviso, esconde "Compartilhar" e "Refazer" e oferece "Fazer o meu teste".

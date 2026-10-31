@@ -27,6 +27,9 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 | `tests/integration/quiz-state.test.ts` | navegação do quiz: responder, avançar, voltar, alterar, limites, reiniciar |
 | `tests/integration/quiz-progress.test.ts` | armazenamento local: chave versionada, 12 tipos de dado inválido, expiração, armazenamento indisponível |
 | `tests/integration/explanations.test.ts` | coerência das explicações em 3.000 perfis: traços em comum, diferenças, seções, pontos fortes, contradições, aviso de equilíbrio; comparação com os 20 personagens; resumo sem respostas individuais |
+| `tests/integration/sharing.test.ts` | formato do link (ida e volta, tamanho, caracteres, 9 tipos de link inválido, valores forjados), reconstrução idêntica em 200 perfis, recusa de versões antigas |
+| `tests/integration/result-image.test.ts` | conteúdo da imagem: vencedor, afinidade, características predominantes, eixos, endereço |
+| `tests/e2e/sharing.spec.ts` | link aberto em outro contexto sem dados locais, copiar link, troca só do fragmento, 5 links inválidos sem executar conteúdo, PNG 1080×1350 baixado sem requisições externas |
 | `tests/e2e/quiz.spec.ts` | iniciar, teclado e nomes acessíveis, avanço automático, voltar/alterar, retomar, reiniciar, progresso corrompido, 45 respostas até o resultado, ausência de requisições externas; resultado: explicação, perfil comportamental, ranking completo, comparação pelo seletor e pelo top 5, copiar resumo, refazer |
 | `tests/e2e/pages.spec.ts` | todas as páginas carregam sem rolagem horizontal (também a 360 px), elementos da landing, catálogo, 404 real, link de pular conteúdo |
 | `tests/themes/south-park.test.ts` | 45 perguntas, 5 por eixo, 9 eixos, 20 personagens, IDs únicos, polaridades 23/22, múltiplos de 5, textos, licença de imagens |
@@ -35,22 +38,20 @@ Primeira execução do Playwright: `npx playwright install chromium`.
 Cenários aleatórios usam um gerador com semente fixa (`seededRandom` em `tests/fixtures.ts`)
 para serem reprodutíveis.
 
-## Último resultado (Fase 5, 30/10/2026)
+## Último resultado (Fase 6, 30/10/2026)
 
 | Verificação | Resultado |
 |---|---|
 | Lint | ✅ sem erros |
 | TypeScript | ✅ sem erros |
-| Vitest | ✅ 12 arquivos, 207 testes |
+| Vitest | ✅ 14 arquivos, 233 testes |
 | Build de produção | ✅ todas as rotas estáticas |
-| Playwright | ✅ 61 testes (desktop, mobile 412 px, mobile 360 px) |
+| Playwright | ✅ 79 testes (desktop, mobile 412 px, mobile 360 px) |
 
 Relatório de calibração: `npx vitest run tests/themes/calibration.test.ts --silent=false`
 (resultados em `docs/CHARACTER_PROFILES.md`).
 
 ## Pendente
 
-- Testes de compartilhamento e exportação de imagem — Fase 6.
-- Testes de links compartilhados corrompidos — Fase 6.
 - Auditoria automatizada de acessibilidade (ex.: axe) — Fase 8.
 - Calibração com respostas reais (teste-piloto) e correlação entre eixos — Fase 8.
